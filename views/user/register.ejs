@@ -1,0 +1,155 @@
+<%- include('../layout/start') %>
+<section class="vh-100">
+    <img class=" gradient-custom vh-100 vw-100" src="img/login-img.jpg" alt="">
+
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5 dark">
+          <div class="card dark1 text-white" style="border-radius: 1rem;">
+            <div class="card-body p-2 px-3 text-center">
+  
+              <div class="md-5 mt-md-2 pb-2">
+                <svg class="mb-4" width="195" height="23" viewBox="0 0 195 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M0 0H195V23H0V0Z" fill="url(#pattern0)"/>
+                    <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_15_126" transform="scale(0.00512821 0.0434783)"/>
+                    </pattern>
+                    <image id="image0_15_126" width="195" height="23" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAAAXCAYAAAC20PuTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2M0MyM0VGQUUwQ0YxMUVBQUUzN0E0MDE1NjQ2QzUyOSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2M0MyM0VGQkUwQ0YxMUVBQUUzN0E0MDE1NjQ2QzUyOSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzQzIzRUY4RTBDRjExRUFBRTM3QTQwMTU2NDZDNTI5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzQzIzRUY5RTBDRjExRUFBRTM3QTQwMTU2NDZDNTI5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+1Xt9VAAABgBJREFUeNrsW02IHEUUrtlsxItoR4KeFGcvguhlVpKAeJoFwR/UMIt6UDEye1Mv0gOCCnqY9uDNw4yI6EFxFhQ9qDiDGpScMuBB0Eh2FA8SIc4YUANKGL9iXkv59nV3VXfNz2bnwccmPfX3Xr2/etVdGoPU/2kIHAHOqmJ0HfAxcC3wD/AnPe8Cz6olLWnBqARbOIm/d7LnPwDHyDDy0JXAF8BR9vx94GHg76Xol7RwBGM4BJwZ76aTwBU6cDhCG9g7wnhngQO8vSceumyu7pxlGgDhAq6rKuxLNcc4dWGccMH02hkr5P3vFaKAjhbtHOt4nrw/pz+AS/vAuWjl2gGaAFe08tL9Li6tGGnR/ZTbm/QY8JzDeA8BL+7jKFumM1GQ0CRYqtzi0ipwPfAr8BVwAnibtXmZDtPvZYylzwdv7nN5SqnCNtBfqtre8GaPAy8YudNLQj54ETiWkm/dCJwbp9M3Ut/L6cyAeYdsHa1FS+F8nBn2iF7nOjMoSm0eMXL+d4Xq0IfATcK8VwEfqUkp1aSL+8ypBEIaNFi62713ZlCU4tyh9xV4AjjF2h5Wk3uDq41nB8hwbmNtf8pzdqAKTCh4r9O+qhUYp6Y9Nht/SPMGOcbbobsaqQzdZPOUffJLvDSF/i0XeRnVryGXiY8Ik1BZG9Paaw4Rv2Xw3WG/dQpHOUqTYjqvN4zCxmFgIDCgF3iQ2rwq/H4BuIWNm5gm0XzNsR3pDarkSZNow7sWc1TzGIMllT3xa8vL0FS2BCUOhfSOG2aQxxhIaYcW6+xyR5FkDIIj41TPmyYpQWm/NBrcDPwuTPg6sCU8vwTcRX1tjSGwFFhMOzmN4bTDHJUpGoMPfjsO/bsZSmxDoasxkCG40I5gdN0cax2SjJ2NYVXY32uMf38PHAc+AQ4az58kcHoa+NTFs5ZKpREW0jYqMT1CTFoxzVCqFaqGftsu6ReNk1TlqbI7AX1HsGE5fNsom/K0gvMyKsovKUwtYx7tHWNPG1nwMDLalak/r5JFLmkX/kjFg4jmUsSDuSdlkvuWxRTm3pm8xvtQd1lvUpqU5MFPWFjka6yPVWSI6/NpOa7gIZoukUHwxKHFHBVHOZZtb2WL8Ct45WFKXt+y8OiSR5ZSkcA2MiScg2qWEa6cERlCC7k3i1STsugN4JWU3z8Dnsp7boHXGwBplsyrMmUHJa0JVZ52grdRzENPhQryy+8sAsmwMH4PsPGybR2t2DPpXsTl9pwrfj8hkkcWfRWLrBGXZRH9MGnVoW0DWKO0yaTvgE1V8FUL8iwVIWWRyKXqIwlmaHHHMdXb4rz8Upq1zZSmSdHjv3Qnw9iyFN+3zHsJTqGPdY/Y2IHvtf5y5Kh3Y9Da8yhwA3A7PTsP3A1cKKgYnQyPcLndSRTldyvBiwaUdysyjrZldPBNgXAmSTuvBDNyQmPbewYb+gu4D/hZTV7DfgD4saBihMKm6ijUKBGpfC8MpoVaG4qmZAiF+dXRAdDR+FDcN6FpnQxv1jRyiCouhjNVWs3R5xxFg1uBrz2sgStGJChiEW8xEHLsig7Rc5K5N34p14/M/JuMzSww6BJnIJwLpkkDduaqJjiGyiIZw0rOft+q3a9s+AqpgSCwIilFTxBwK81zu1aSZs0vVWHCBAOJhNy6MmO92lWMSLhpDi36zjUynPI0tu05os8OXHU63MYevVmwcqMPnBEbp0KXWW2mlKFRbZpWrl2IXyo91sjjN9Xut2IrgvLP2tvG9yimoXdoH0ZGtKgKla3BohiD/gT0GU9jfwC8pSbfRGQJjnuNesYhy9UgIvJM0iWPmMqgfWNKqUVRfmvC/9MiSX/WKSE5IO1MOhaRwEytGvMsbJhpkv5m4bjy+32y3uTPMwTXyxBC30foxDzrDuP0p1XV8MCvVFdPa7s5D8Wie4UNy6ikZbI+43ONaAz6c8wzwD3Ab57H14b1oJrcRaR6bhIcV4IGKbGvDdKKsU7KOErwTHpTNqYZrovwq5UMWCMlbyQo2zaNtTbPtIMu/uKKl3TXoOWwSfKeqyFo+leAAQBsQdKS2fBNWwAAAABJRU5ErkJggg=="/>
+                    </defs>
+                    </svg>
+                    
+                    
+                <h2 class="fw-bold mb-2 text-uppercase">Sign up</h2>
+                <!-- <p class="text-white-50 mb-5">Please enter your login and password!</p> -->
+  <form action="" method="" id="form"">
+
+ 
+                <div class="form form-white mb-1">
+                   
+                  <input name="name" type="text" id="name" class="form-control form-control-lg" placeholder="Name"/>
+                  <div class="err-div d-flex flex-end">
+                    <small id="nameError" class=" ps-1 error text-danger"></small>
+                </div>
+                </div>
+                <div class="form-outline form-white mb-2">
+                  <input name="email" type="text" id="email" class="form-control form-control-lg " placeholder="Email" />
+                  <div class="err-div d-flex flex-end">
+                    <small class=" ps-1 error text-danger"></small>
+                </div>
+                </div>
+                <div class="form-outline form-white mb-2">
+                    <input name="mobile" type="text" id="mobile" class="form-control form-control-lg " placeholder="Mobile Number" />
+                    <div class="err-div d-flex flex-end">
+                        <small class=" ps-1 error text-danger"></small>
+                    </div>
+                  </div>
+                  <div class="form-outline form-white mb-2">
+                    <input name="password" type="password" id="password" class="form-control form-control-lg " placeholder="Password" />
+                   <div class="err-div d-flex flex-end">
+                        <small class=" ps-1 error text-danger"></small>
+                    </div>
+                  </div>
+                  <div class="form-outline form-white mb-2">
+                    <input name="repassword" type="password" id="repassword" class="form-control form-control-lg " placeholder="Repassword" />
+                    <div class="err-div d-flex flex-end">
+                        <small class="ps-1 error text-danger"></small>
+                    </div>
+                   
+                  </div>
+    
+  
+                
+                <button id="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Sign up</button>
+  
+            </form>
+                <div class="d-flex justify-content-center text-center mt-2 pt-1">
+                  <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                  <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                  <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                </div>
+  
+              </div>
+  
+             
+              <div>
+                <p class="mb-0"><a href="#!" class="text-white-50 fw-bold">Otp login</a>
+                </p>
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <button id="btn"></button>
+  <script>
+    
+    // $(document).redy(function(){
+    //   $("form").submit(function(){
+    //     event.preventDefault();
+    //     const name=$("#name").val();
+    //     const email=$("#email").val();
+    //     const mobile=$("#mobile").val();
+    //     const password1=$("#passwprd");
+    //     const password2=$("#repassword");
+    //     const submit=$("submit")
+    //     $(".error").load("/register",{
+    //         name:name,
+    //         email:email,
+    //         m
+    //     })
+
+    // })
+    // })
+    // $(document).ready(function(){
+    //   let chek
+
+      // validateForm()
+      //   $("#form").submit(function(ev){
+      //   // event.defaultPrevented()
+      // })
+      // }
+     
+     
+       
+    
+//      function validateForm(){
+//       chek=true
+//       if($("#name").val()===''){
+//         $("#nameError").text("Name is requred")
+//         chek=false
+//       }
+//             $("#name").keyup(function(){
+//             let name=$("#name").val()
+//             if(name===""){
+//               $("#nameError").text("Name is requred")
+//             }
+//             else if(name.length<4){
+//               $("#nameError").text("Minimum 4 charecter")
+//             }else(
+//               $("#nameError").text("")
+//             )
+//         })
+// }
+
+// $("#form").validate({
+//   rules:{
+//     name:{
+//       minlength:2
+//     },
+//     messages:{
+//       required:"please enter your name"
+//     },
+//     submitHandler:function(form){
+//       form.submit()
+//     }
+//   }
+ 
+// })
+//   </script>
+<script src="ajax/javascript.js"></script>
+
+<%- include('../layout/end') %>

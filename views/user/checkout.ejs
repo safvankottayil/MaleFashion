@@ -1,0 +1,415 @@
+<%- include('../layout/start') %>
+<%- include('../layout/navbar',{x}) %>
+
+ <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Check Out</h4>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Check Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+  <!-- Checkout Section Begin -->
+  <section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <% if(address||index){ %>
+                <form id="form1" action="/edit-address?checkout=true&index=<%= index %>" method="post">
+
+                <% }else{ %>
+                    <form id="form1" action="/add-address?checkout=true" method="post">
+                    <% } %>
+           
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <a href="/user-address?checkout=true"><p class="btn btn-primary text-uppercase " >select address</p></a>
+                        <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+                        here</a> to enter your code</h6>
+                        <h6 class="checkout__title">Billing Details</h6>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Fist Name<span>*</span></p>
+                                    <% if(address){ %>
+                                    <input value="<%=address.name %>"  id="name" name="name"   type="text">
+
+                                        <% }else{ %>
+                                    <input  id="name" name="name"   type="text">
+                                            <% } %>
+                                    <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>phone number<span>*</span></p>
+                                    <% if(address){ %>
+                                    <input name="mobile1" id="mobile1"  type="text" value="<%= address.mobile1 %>">
+                                        <% }else{ %>
+                                    <input name="mobile1" id="mobile1"  type="text">
+                                            <% } %>
+                                    <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>pincode<span></span></p>
+                            <% if(address){ %>
+                            <input  name="pincode" id="pincode" value="<%= address.pincode %>" type="text">
+                                <% }else{ %>
+                            <input  name="pincode" id="pincode"  type="text">
+                                    <% } %>
+                            <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                        </div>
+                      
+                        <div class="checkout__input">
+                            <p>Localirty<span>*</span></p>
+                            <% if(address){ %>
+                            <input  name="lo" id="location1" value="<%= address.location1 %>" type="text">
+                                <% }else{ %>
+                            <input  name="lo" id="location1" type="text">
+                                    <% } %>
+
+                            <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span></p>
+                            <% if(address){ %>
+                            <input  name="address" id="address"  type="text" placeholder="Street Address" value="<%= address.address %>" class="checkout__input__add">
+                                <% }else{ %>
+                            <input  name="address" id="address"  type="text" placeholder="Street Address" class="checkout__input__add">
+                                    <% } %>
+                            <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                            <!-- <input type="text" placeholder="Apartment, suite, unite ect (optinal)"> -->
+                        </div>
+                        <div class="checkout__input">
+                            <p>District<span>*</span></p>
+                            <% if(address){ %>
+                            <input  name="district" id="district" type="text" value="<%= address.district %>">
+                                <% }else{ %>
+                            <input  name="district" id="district" type="text">
+                                    <% } %>
+                            <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                        </div>
+                        <div class="checkout__input">
+                            <p>State<span>*</span></p>
+                            <% if(address){ %>
+                            <input  name="state" id="state" type="text" value="<%= address.state %>">
+                                <% }else{ %>
+                            <input  name="state" id="state" type="text">
+                                    <% } %>
+                            <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>landmark<span>*</span></p>
+                                    <% if(address){ %>
+                                    <input  name="landmark" id="landmark" type="text" value="<%= address.landmark %>">
+                                        <% }else{ %>
+                                    <input  name="landmark" id="landmark" type="text">
+                                            <% } %>
+                                   
+                                    <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Alternate phone<span></span></p>
+                                    <% if(address){ %>
+                                    <input  name="mobile2" id="mobile2" type="text" value="<%= address.mobile2 %>">
+                                        <% }else{ %>
+                                    <input  name="mobile2" id="mobile2" type="text">
+                                            <% } %>
+                                    <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4 class="order__title">Your order</h4>
+                            <div class="checkout__order__products">Product <span>Total</span></div>
+                           
+                                
+                           
+                            <ul class="checkout__total__products">
+                                <% CartData.products.forEach((element,i ) => {%>
+                                <li class="text-dark"><b><%=i+1 %>.<%= element.product.title %> (Items <%= element.stock %>)</b><span><%= element.totalprice %></span></li>
+                                <% }) %>
+                               
+                            </ul>
+                            <ul class="checkout__total__all">
+                                <li>Subtotal <span>$<%= subtotal %></span></li>
+                                <li>Discount <span class="text-success"><%= subTotaldiscount %></span></li>
+                                <li>Total <span><%=subtotal-subTotaldiscount %></span></li>
+                            </ul>
+                            <div class="">
+                                <label for="pyment">
+                                   
+                                    <input name="payment" value="cash"  type="radio" id="cashondelivery">
+                                    cash on delivery
+                                    <!-- <span class="checkmark"></span> -->
+                                <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                                </label>
+                            </div>
+                            <div class="">
+                                <label for="pyment">
+                                    
+                                    <input name="payment" value="paypal" type="radio" id="paypal">
+                                    Paypal
+                                    <!-- <span class="checkmark"></span> -->
+                                </label>
+                            </div>
+                           
+
+                            <button  data-bs-toggle="modal" data-bs-target="#myModal" type="button" class="site-btn">PLACE OREDER</button>
+                               
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                  
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <!-- <h4 class="modal-title">Modal Heading</h4> -->
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                  
+                                        <!-- Modal body -->
+                                        <div class="modal-body d-flex justify-content-between">
+                                    <p><b> Conform your Order?</b></p>
+                                    <button type="submit" class="btn primary-btn">OK</button>
+                                        </div>
+                                  
+                                        <!-- Modal footer -->
+                                        
+                                  
+                                      </div>
+                                    </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- <section>
+
+</section> -->
+<!-- Checkout Section End
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumb__text">
+                <h4>Check Out</h4>
+                <div class="breadcrumb__links">
+                    <a href="./index.html">Home</a>
+                    <a href="./shop.html">Shop</a>
+                    <span>Check Out</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section> -->
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<!-- <section class="checkout spad">
+<div class="container">
+    <div class="checkout__form">
+        <form id="form1" action="" method="post">
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+
+                  <div  style="border-radius: 3px ; background-color: azure;"  class="p-2 shadow col-12">
+                    <div class=""> <input type="radio"><label class="ps-3" for="">CASH ON DELEVERY</label></div>
+                    <div style="height: 50px; " class="d-flex">
+                        <input class="h-100" disabled type="text"> 
+                        <input  class= "ms-2 h-100"  type="text">
+                        <div class="ms-2">
+                            <a  href="" class="primary-btn h-100 " type="text">CONFORM</a>
+                        </div>
+                    </div>
+                  </div>
+                  
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="checkout__order">
+                        <h4 class="order__title">Your order</h4>
+                        <div class="checkout__order__products">Product <span>Total</span></div>
+                       
+                            
+                       
+                        <ul class="checkout__total__products">
+                            <% CartData.products.forEach((element,i ) => {%>
+                            <li class="text-dark"><b><%=i+1 %>.<%= element.product.title %> (Items <%= element.stock %>)</b><span><%= element.totalprice %></span></li>
+                            <% }) %>
+                           
+                        </ul>
+                        <ul class="checkout__total__all">
+                            <li>Subtotal <span>$<%= subtotal %></span></li>
+                            <li>Discount <span class="text-success"><%= subTotaldiscount %></span></li>
+                            <li>Total <span><%=subtotal-subTotaldiscount %></span></li>
+                        </ul> -->
+                        <!-- <div class="checkout__input__checkbox">
+                            <label for="acc-or">
+                                Create an account?
+                                <input type="checkbox" id="acc-or">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div> -->
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua.</p> -->
+                       
+                      
+                    <!-- </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+<script>
+    
+    const form1 = document.getElementById('form1')
+    const name = document.getElementById('name')
+    const mobile1 = document.getElementById('mobile1')
+    const pincode= document.getElementById('pincode')
+    const location1 = document.getElementById('location1')
+    const address = document.getElementById('address')
+    const district = document.getElementById('district')
+    const state = document.getElementById('state')
+    const landmark = document.getElementById('landmark')
+    const mobile2= document.getElementById('mobile2')
+    const cashondelivery= document.getElementById('cashondelivery').value
+    console.log(cashondelivery);
+
+
+
+
+
+
+    const seterror = (element, message) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const setSuccess = (element) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = ''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+    form1.addEventListener('submit', e => {
+      console.log('hallo');
+
+    //   console.log();
+    console.log(cashondelivery);
+
+      const Add_name = name.value.trim()
+      const Add_mobile1= mobile1.value.trim()
+      const Add_pincode = pincode.value.trim()
+      const Add_location = location1.value.trim()
+      const Add_address = address.value.trim()
+      const Add_district = district.value.trim()
+      const Add_state= state.value.trim()
+      const Add_landmark= landmark.value.trim()
+      const Add_mobile2= mobile2.value.trim()
+      const cash= cashondelivery.value
+
+
+      ////NAME///
+      if (Add_name == '') {
+        seterror(name, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(name)
+      }
+      //////mobile1/////
+      if (Add_mobile1 == '') {
+        seterror(mobile1, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(mobile1)
+      }
+      /////pincode////
+      if (Add_pincode == '') {
+        seterror(pincode, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(pincode)
+      }
+      ////////locatiooin/////
+      if (Add_location == '') {
+        seterror(location1, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(location1)
+      }
+      ///////address////
+      if (Add_address == '') {
+        seterror(address, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(address)
+      }
+      /////district/////
+      if (Add_district == '') {
+        seterror(district, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(district)
+      }
+    //   /state>>>>>
+      if (Add_state== '') {
+        seterror(state, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(state)
+      }
+      ///////LANDMSRK
+      if(Add_landmark==''){
+        seterror(landmark,'This field requred')
+        e.preventDefault()
+      }else{
+        setSuccess(landmark)
+      }
+      ////////////MOBILE2''''''''''''
+      if(Add_mobile2==''){
+        seterror(mobile2,'This field requred')
+      }else{
+        setSuccess(mobile2)
+      }
+
+    })
+  </script>
+
+<%- include('../layout/footer') %>
+<%- include('../layout/end') %>

@@ -1,0 +1,150 @@
+<%- include('../layout/start') %>
+    <section class="row w-100 m-0">
+        <%- include('../layout/adminNavbar') %>
+
+
+            <div class="container-fluid col-12 col-md-10  p-0  w-100 m-0">
+                <section>
+
+                    <style>
+                        .list li {
+                            list-style: none;
+                            padding-left: 10px;
+                        }
+                    </style>
+                    <div class="col-12">
+                        <div class="row w-100 m-0">
+                            <div class="col-12 col-md-2 py-2">
+                                <div class="mx-2  shadow ">
+                                    <ul class="list">
+                                        <li class="pt-3">
+                                            <h5><b>FILTER</b></h5>
+                                        </li>
+                                        <li class="py-2">
+                                            <h6><b>ORDER STATUS</b></h6>
+                                        </li>
+                                        <div class="slidenav">
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">ALL</label>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">PENDING</label>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">ON THE WAY</label>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">DELIVERED</label>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">CANCELLED</label>
+                                            </li>
+                                            <li>
+                                                <input type="checkbox" name="" id="">
+                                                <label for="">RETURNED</label>
+                                            </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-10 m-0">
+                                <% groupOrders.forEach(element=> {%>
+                                    <section class=" my-2 shadow bg-white"
+                                        style=" border-radius: 5px; border: 1px solid black;" data-bs-spy="scroll"
+                                        data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+                                        data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2"
+                                        tabindex="0">
+                                        <% element.forEach( (value)=>{%>
+                                            <a style="color:black ;"
+                                                href="/admin/orderviews?orderHash=<%=value.order_hash%>">
+                                                <div class="py-2 ps-3   w-100  d-flex">
+                                                    <div class="row w-100  ">
+                                                        <div class="col-12 col-md-5 d-flex">
+                                                            <div>
+                                                                <img class="pe-3" style="height:120px;"
+                                                                    src="product/<%=value.product_id.image[0]%>" alt="">
+                                                            </div>
+                                                            <div>
+                                                                <h6>
+                                                                    <%=value.product_id.title%> (Item<%=value.quantity%>
+                                                                            )
+                                                                </h6>
+                                                                <p><b> size:</b>
+                                                                    <%=value.size%> <b>color:</b>
+                                                                        <%=value.color%>
+                                                                </p>
+                                                                <h5><span
+                                                                        class="mx-2">₹<%=value.totalprice-value.totaldiscount%></span><br><small
+                                                                        class="mx-2 text-danger text-decoration-line-through">₹
+                                                                        <%=value.totalprice%>
+                                                                    </small><span class="text-success mx-2">18%
+                                                                        off</span></h5>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+                                                        <div
+                                                            class="col-12 col-md-7 my-2 d-flex flex-column justify-content-evenly fs-16">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-evenly ">
+                                                                <small style="font-size: medium;"
+                                                                    class="text-nowrap">ORDER SUCCESS<br>
+                                                                    <%=value.date %>
+                                                                </small>
+                                                                <span class="bg-success mx-2"
+                                                                    style="height: 3px; width: 80%;"></span>
+                                                                <% if(value.status=='cancelled' ){ %>
+                                                                    <small style="font-size: medium;"
+                                                                        class="text-nowrap text-danger">CANCELLED DATE
+                                                                        <br>
+                                                                        <%=value.arrive_date%>
+                                                                    </small>
+                                                                    <%}else{%>
+                                                                        <small style="font-size: medium;"
+                                                                            class="text-nowrap">DELIVERY DATE
+                                                                            <br>
+                                                                            <%= value.arrive_date%>
+                                                                                <% } %>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between ">
+                                                                <% if(value.status=='pending' ){ %>
+                                                                    <span><b>status: </b><span
+                                                                            class="text-warning">pending</span></span>
+                                                                    <%}else if(value.status=='cancelled' ){%>
+                                                                        <span><b>status: </b><span
+                                                                                class="text-danger">canceled</span>
+                                                                        </span>
+                                                                        <% }else if(value.status=='delivered' ){ %>
+                                                                            <span><b>status: </b><span
+                                                                                    class="text-success">delivered</span>
+                                                                            </span>
+                                                                            <% }else if(value.status=='on the way' ){ %>
+                                                                                <span><b>status: </b><span
+                                                                                        class="text-success">ontheway</span>
+                                                                                </span>
+                                                                                <% }else{ %>
+                                                                                    <span><b>status: </b><span
+                                                                                            class="text-success">Returned</span>
+                                                                                    </span>
+                                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <% }); %>
+                                    </section>
+                                    </a>
+                                    <% }); %>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--  -->
+                </section>
+            </div>
+    </section>

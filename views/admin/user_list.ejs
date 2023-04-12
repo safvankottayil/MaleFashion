@@ -1,0 +1,60 @@
+<%- include('../layout/start') %>
+<section class=" row vw-100">
+  <%- include('../layout/adminNavbar') %>
+
+  <!-- table -->
+  <section class= "col-10 data-bs-spy="scroll>
+  <table class="table">
+    <thead>
+       
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NAME</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">VERIFY</th>
+        <th scope="col">MOBILE</th>
+        <th scope="col">
+            USE MANGEMEND
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% for(let i=0;i<userData.length;i++){ %>
+        <th scope="row"><%= i+1 %></th>
+        <td><%= userData[i].name %></td>
+        <td><%= userData[i].email %></td>
+        <% if(userData[i].is_verfyed==true){ %>
+        <td>verifyed</td>
+        <% }else{ %>
+            <td>not verifyed</td>
+            <% } %>
+        <td><%= userData[i].mobile %></td>
+        <td>
+            <% if(userData[i].is_blocked==false){ %>
+        <a href="/admin/user-block?id=<%=userData[i]._id %>"><button class="btn btn-primary">BLOCK</button></a>
+        <% }else{ %>
+        <a href="/admin/user-block?id=<%=userData[i]._id %>"><button class="btn btn-primary">UNBLOCK</button></a>
+        <% } %>
+       
+      
+    </td>
+      </tr>
+     <% } %>
+    </tbody>
+  </table>
+</section>
+</section>
+<script>
+  $(document).ready(function(){
+    $("#Usersearch").keyup(function(){
+    let value=  $('#Usersearch').val()
+    })
+    $.ajax({
+      url:'/search'
+    })
+  })
+</script>
+
+<%- include('../layout/end') %>

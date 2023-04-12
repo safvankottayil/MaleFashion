@@ -1,0 +1,55 @@
+<%- include('../layout/start') %>
+<section class="row w-100">
+  <%- include('../layout/adminNavbar') %>
+
+
+<div class="container-fluid col-10">
+    <section class="data-bs-spy="scroll>
+        <table class="table">
+          <thead>
+             
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">IMAGE</th>
+              <th scope="col">PRICE</th>
+              <th scope="col">STOCK</th>
+              <th scope="col">DISCOUNT</th>
+              <th scope="col">CATGERY NAME</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i=0;i<Data.length;i++){%>
+            <tr class="">
+            
+              <th scope="row"><%= i+1%></th>
+              <td><img style="height:100px; width: 100px;" src="product/<%=Data[i].image[0] %>" alt="">
+            <%=Data[i].title %></td>
+    
+              <td class="pt-5"><%= Data[i].price %></td>
+              <td class="pt-5"><%=Data[i].stock %></td>
+              <td class="pt-5"><%=Data[i].discount %></td>
+              <td class="pt-5"><%=Data[i].category.category %></td>
+              
+              <td class="pt-5">    
+               <% if(Data[i].status){%>
+                  <a href="/admin/product-unlist?id=<%= Data[i]._id %>"><button class="btn btn-danger">LIST</button></a>
+               <% }else{%>
+                <a href="/admin/product-unlist?id=<%= Data[i]._id %>"><button class="btn btn-danger">UNLIST</button></a>
+                <%}%>
+                <a href="/admin/products-edit?id=<%= Data[i]._id %>"><button class="btn btn-success">EDIT</button></a>
+              
+            </td>
+           
+            </tr>
+            <% } %>
+          
+          </tbody>
+        </table>
+        <div class="w-100 d-flex justify-content-center">
+        <a href="/admin/addproducts"><button class="btn btn-primary">ADD PRODUCTS</button></a>
+        </div>
+      </section>
+</div>
+</section>
+<%- include('../layout/end') %>

@@ -1,0 +1,267 @@
+<style>
+.address{
+    width: 88%;
+}
+@media (max-width:500px) {
+    .address{
+    width: 81%;
+}
+}
+</style>
+
+<section class="w-100 " style="background-color: white">
+
+
+<div class="container shadow  " >
+  <div class="checkout__form">
+      <% if(address||index){ %>
+        <form id="form1" action="/edit-address?id=<%=address._id%>" method="post">
+          <% }else{ %>
+              <form id="form1" action="/add-address" method="post">
+              <% } %>
+     
+          <div class="row">
+              <div class="col-12 ">
+                  <a href="/user-address"><p class="btn btn-primary text-uppercase " >select address</p></a>
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <div class="checkout__input">
+                              <p>Fist Name<span>*</span></p>
+                              <% if(address){ %>
+                              <input value="<%=address.name %>"  id="name" name="name"   type="text">
+
+                                  <% }else{ %>
+                              <input  id="name" name="name"   type="text">
+                                      <% } %>
+                              <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="checkout__input">
+                              <p>phone number<span>*</span></p>
+                              <% if(address){ %>
+                              <input name="mobile1" id="mobile1"  type="text" value="<%= address.mobile1 %>">
+                                  <% }else{ %>
+                              <input name="mobile1" id="mobile1"  type="text">
+                                      <% } %>
+                              <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="checkout__input">
+                      <p>pincode<span></span></p>
+                      <% if(address){ %>
+                      <input  name="pincode" id="pincode" value="<%= address.pincode %>" type="text">
+                          <% }else{ %>
+                      <input  name="pincode" id="pincode"  type="text">
+                              <% } %>
+                      <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                  </div>
+                
+                  <div class="checkout__input">
+                      <p>Localirty<span>*</span></p>
+                      <% if(address){ %>
+                      <input  name="lo" id="location1" value="<%= address.location1 %>" type="text">
+                          <% }else{ %>
+                      <input  name="lo" id="location1" type="text">
+                              <% } %>
+
+                      <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                  </div>
+                  <div class="checkout__input">
+                      <p>Address<span>*</span></p>
+                      <% if(address){ %>
+                      <input  name="address" id="address"  type="text" placeholder="Street Address" value="<%= address.address %>" class="checkout__input__add">
+                          <% }else{ %>
+                      <input  name="address" id="address"  type="text" placeholder="Street Address" class="checkout__input__add">
+                              <% } %>
+                      <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                      <!-- <input type="text" placeholder="Apartment, suite, unite ect (optinal)"> -->
+                  </div>
+                  <div class="checkout__input">
+                      <p>District<span>*</span></p>
+                      <% if(address){ %>
+                      <input  name="district" id="district" type="text" value="<%= address.district %>">
+                          <% }else{ %>
+                      <input  name="district" id="district" type="text">
+                              <% } %>
+                      <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                  </div>
+                  <div class="checkout__input">
+                      <p>State<span>*</span></p>
+                      <% if(address){ %>
+                      <input  name="state" id="state" type="text" value="<%= address.state %>">
+                          <% }else{ %>
+                      <input  name="state" id="state" type="text">
+                              <% } %>
+                      <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <div class="checkout__input">
+                              <p>landmark<span>*</span></p>
+                              <% if(address){ %>
+                              <input  name="landmark" id="landmark" type="text" value="<%= address.landmark %>">
+                                  <% }else{ %>
+                              <input  name="landmark" id="landmark" type="text">
+                                      <% } %>
+                             
+                              <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="checkout__input">
+                              <p>Alternate phone<span></span></p>
+                              <% if(address){ %>
+                              <input  name="mobile2" id="mobile2" type="text" value="<%= address.mobile2 %>">
+                                  <% }else{ %>
+                              <input  name="mobile2" id="mobile2" type="text">
+                                      <% } %>
+                              <div class="w-75"><small class=" text-danger error" ></small></div>
+
+                          </div>
+                         
+                      </div>
+                  </div>
+                  <% if(address){ %>
+                    <button type="submit" class="btn btn-primary mb-4">EDIT</button>
+                    <% }else{ %>
+                    <button type="submit" class="btn btn-primary mb-4">SAVE</button>
+                      <% } %>
+                  </div> 
+              </div>
+             
+                     
+                     
+                     
+                  </div>
+              
+          </div>
+      </form>
+  </div>
+</div>
+
+
+
+</section>
+
+<script>
+    
+    const form1 = document.getElementById('form1')
+    const name = document.getElementById('name')
+    const mobile1 = document.getElementById('mobile1')
+    const pincode= document.getElementById('pincode')
+    const location1 = document.getElementById('location1')
+    const address = document.getElementById('address')
+    const district = document.getElementById('district')
+    const state = document.getElementById('state')
+    const landmark = document.getElementById('landmark')
+    const mobile2= document.getElementById('mobile2')
+
+
+
+
+    const seterror = (element, message) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const setSuccess = (element) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = ''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+    form1.addEventListener('submit', e => {
+      console.log('hallo');
+      const Add_name = name.value.trim()
+      const Add_mobile1= mobile1.value.trim()
+      const Add_pincode = pincode.value.trim()
+      const Add_location = location1.value.trim()
+      const Add_address = address.value.trim()
+      const Add_district = district.value.trim()
+      const Add_state= state.value.trim()
+      const Add_landmark= landmark.value.trim()
+      const Add_mobile2= mobile2.value.trim()
+    //   const Add_state= state.value.trim()
+
+
+    
+      ////NAME///
+      if (Add_name == '') {
+        seterror(name, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(name)
+      }
+      //////mobile1/////
+      if (Add_mobile1 == '') {
+        seterror(mobile1, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(mobile1)
+      }
+      /////pincode////
+      if (Add_pincode == '') {
+        seterror(pincode, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(pincode)
+      }
+      ////////locatiooin/////
+      if (Add_location == '') {
+        seterror(location1, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(location1)
+      }
+      ///////address////
+      if (Add_address == '') {
+        seterror(address, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(address)
+      }
+      /////district/////
+      if (Add_district == '') {
+        seterror(district, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(district)
+      }
+    //   /state>>>>>
+      if (Add_state== '') {
+        seterror(state, 'This field requred')
+        e.preventDefault()
+      } else {
+        setSuccess(state)
+      }
+      ///////LANDMSRK
+      if(Add_landmark==''){
+        seterror(landmark,'This field requred')
+        e.preventDefault()
+      }else{
+        setSuccess(landmark)
+      }
+      ////////////MOBILE2''''''''''''
+      if(Add_mobile2==''){
+        seterror(mobile2,'This field requred')
+      }else{
+        setSuccess(mobile2)
+      }
+
+    })
+  </script>

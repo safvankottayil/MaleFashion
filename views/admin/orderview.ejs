@@ -1,0 +1,225 @@
+<%- include('../layout/start') %>
+
+<style>
+    .statuslist{
+        list-style: none;
+    
+    }
+    .spanround{
+        height: 5px;
+
+    }
+    .pricebox{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @media (max-width:500px) {
+        .pricebox{
+        display: flex;
+        flex-direction: column;
+    }
+    .pricebox  span{
+       height: 40px;
+       width: 4px;
+    }
+        
+    }
+    .spanround{
+        height: 15px;
+        width: 15px;
+        border-radius: 8px;
+
+    }
+</style>
+<section  class="row w-100 m-0">
+   <%- include('../layout/adminNavbar') %>
+<div class=" col-12 col-md-10  p-0  w-100 m-0">
+
+<section class="p-1" >
+<section class="container-fluid  ">
+    <div class="m-0 row d-flex justify-content-center w-100">
+    <div class="col-12  p-0">
+        <div class="my-3 shadow bg-white  width:100%  "  >
+            <div class="ps-2" >
+            <h5><b>Delivery Address</b></h5>
+            <p class="my-2"><%=orderDetail[0].address.name%></p>
+            <address class="my-2">
+                <%= orderDetail[0].address.address %>
+            </address>
+            <h5><b>phone numbers</b></h5>
+            <p><%=orderDetail[0].address.mobile1 %><br><%=orderDetail[0].address.mobile2 %></p>
+        </div>
+        </div>
+    </div>
+  
+</div>
+<% orderDetail.forEach(element => {%>
+    
+
+        <div class="py-3 ps-3 mb-2 shadow bg-white w-100  d-flex"  style=" border-radius: 5px;">
+ <div class="row w-100 ">
+            <div class="col-12 col-md-5 d-flex">
+            <div>
+                <img class="pe-3" style="height:120px;" src="product/<%=element.product_id.image[0]%>" alt="">
+            </div>
+            <div >
+                    <h6><%=element.product_id.title%>  (Item<%=element.quantity%>)</h6>
+                    <p><b>size:</b> <%=element.size%> <b>color:</b> <%=element.color%></p>
+                    <h5 ><span class="mx-2">₹<%=element.totalprice-element.totaldiscount%></span><br><small class="mx-2 text-danger text-decoration-line-through">₹<%=element.totalprice%></small><span class="text-success mx-2">18% off</span></h5>
+
+            </div>
+            <!--  -->
+            
+        </div>
+
+        <div class="col-12 col-md-7 my-2 d-flex flex-column justify-content-evenly fs-16 ">
+            <div class="d-flex align-items-center justify-content-evenly ">
+                <small class="text-nowrap">ORDER SUCCESS<br>
+                <%=element.date %></small>
+                
+                <span class="bg-success mx-2" style="height: 3px; width: 80%;"></span>
+                    <% if(element.status=='pending'){ %>
+                <small class="text-nowrap">DELIVERY DATE
+                    <br><%= element.arrive_date%>
+                </small>
+                <%}else{%>
+                    <% if(element.status=='cancelled'){ %>
+                    <small class="text-nowrap text-danger">CANCELLED DATE
+                        <br><%= element.arrive_date%></small>
+                        <% }else{ %>
+                            <small class="text-nowrap">DELIVERY DATE
+                                <br><%= element.arrive_date%>
+                            <% } %>
+                    <% } %>
+            </div>
+            <div class="d-flex justify-content-between ">
+                <% if(element.status=='pending'){ %>
+                    <span><b>status: </b><span class="text-warning">pending</span></span>
+                <%}else if(element.status=='cancelled'){%>
+                    <span ><b>status: </b><span class="text-danger">cancelled</span> </span>
+                    <% }else if(element.status=='delivered'){ %>
+                        <span ><b>status: </b><span class="text-success">delivered</span> </span>
+                    <% }else if(element.status=='on the way'){ %>
+                        <span ><b>status: </b><span class="text-success">ontheway</span> </span>
+                 <% }else{ %>
+                  <span ><b>status: </b><span class="text-danger">Returned</span> </span>
+                    <% } %>
+                
+            </div>
+         </div>
+        
+        </div>
+        </div>
+
+        <%}); %>
+        <div class="col-12  my-3 p-0 fs-16">
+            <div  class="bg-white h-100 px-2 py-3  pricebox  shadow">
+                <div class="col-12 col-md-3 m-0 p-0 h-100">
+                    <div class="my-3"  >
+                        <ul class="statuslist">
+                            <% if(orderDetail[0].status=='pending'){ %>
+                            <li> 
+                                 <input  name="checkbox" id="click" type="radio" >
+                                <label for="">PENDING</label>
+                            </li>
+                            <% }else{ %>
+                                <li> 
+                                    <input onclick="pending('<%=orderDetail[0].order_hash %>')" name="checkbox" id="pending" type="radio" >
+                                   <label for="">PENDING</label>
+                               </li> 
+                            <%} if (orderDetail[0].status=='on the way'){ %>
+                            <li>
+                                <input   name="checkbox" id="click" type="radio">
+                                <label for="">ON HTE WAY</label>
+                            </li>
+                            <% }else{ %>
+                                <li>
+                                    <input  onclick="ontheway('<%=orderDetail[0].order_hash %>')"   name="checkbox" id="ontheway" type="radio">
+                                    <label for="">ON HTE WAY</label>
+                                </li>
+                            <%} if (orderDetail[0].status=='delivered'){ %>
+                                <li>
+                                    <input   name="checkbox" id="click" type="radio">
+                                    <label for="">DELIVERED</label>
+                                </li>
+                            <% }else{ %>
+            
+                            <li>
+                                <input  onclick="delivered('<%=orderDetail[0].order_hash %>')"  name="checkbox" id="delivered" type="radio">
+                                <label for="">DELIVERED</label>
+                            </li>
+                            <%} if (orderDetail[0].status=='cancelled'){ %>
+                                <li>
+                                    <input   name="checkbox" id="click" type="radio">
+                                    <label for="">CANCELLED</label>
+                                </li>
+                                <% }else{ %>
+            
+                            <li>
+                                <input  onclick="cancelled('<%=orderDetail[0].order_hash %>')"  name="checkbox" id="cancelled" type="radio">
+                                <label for="">CANCELLED</label>
+                            </li>
+                                <% } %>
+                            
+                        </ul>
+            </div>
+                </div>
+            </div>
+         
+
+           
+         </div>
+  
+   
+<!-- </div> -->
+</section>
+</section>
+</div>
+</section>
+<script>
+    $('#click').click()
+    function pending(orderHashID){
+        console.log('cdsk');
+        $.ajax({
+            url:`/admin/orderedit?HashID=${orderHashID}&type=pending`,
+            type:'post',
+            success:(res)=>{
+                location.href=`/admin/orderviews?orderHash=${orderHashID}`
+            }
+        })
+    }
+    function ontheway(orderHashID){
+        console.log('cdsk');
+        $.ajax({
+            url:`/admin/orderedit?HashID=${orderHashID}&type=ontheway`,
+            type:'post',
+            success:(res)=>{
+        
+                location.href=`/admin/orderviews?orderHash=${orderHashID}`
+            }
+        })
+    }
+    function delivered(orderHashID){
+        console.log('cdsk');
+        $.ajax({
+            url:`/admin/orderedit?HashID=${orderHashID}&type=delivered`,
+            type:'post',
+            success:(res)=>{
+                location.href=`/admin/orderviews?orderHash=${orderHashID}`
+            }
+        })
+    }
+    function cancelled(orderHashID){
+        console.log('cdsk');
+        $.ajax({
+            url:`/admin/orderedit?HashID=${orderHashID}&type=cancelled`,
+            type:'post',
+            success:(res)=>{
+                location.href=`/admin/orderviews?orderHash=${orderHashID}`
+            }
+        })
+    }
+</script>
+
+<%- include('../layout/end') %>

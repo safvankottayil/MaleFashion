@@ -1,0 +1,74 @@
+<%- include("../layout/start") %>
+<section class="row w-100">
+
+  <%- include("../layout/adminNavbar") %>
+
+  <section class="col-10  data-bs-spy="scroll>
+    <table class=" border table">
+      <thead>
+         
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">IMAGE</th>
+          <th scope="col">CATGERY NAME</th>
+          <th scope="col">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="">
+          <% for(let i=0;i< CatgeoryData.length;i++){ %>
+          <th scope="row"><%= i+1 %></th>
+          <td><img style="height:100px; width: 100px;" src="catgoery/<%=CatgeoryData[i].image %>" alt=""></td>
+
+          <td class="pt-5"><%= CatgeoryData[i].category %></td>
+          
+        <td class="pt-5">    
+          <button onclick="category('<%= CatgeoryData[i]._id %>')"   class="btn btn-danger">DELETE</button>
+          <a href="/admin/category-edit?id=<%= CatgeoryData[i]._id %>"><button class="btn btn-success">EDIT</button></a>
+        
+      </td>
+        </tr>
+       <% } %>
+      </tbody>
+    </table>
+    <div class="w-100 d-flex justify-content-center">
+      <a href="/admin/add-category"> <button class=" btn btn-primary">ADD CATGEORY</button></a>
+     </div>
+  </section>
+</section>
+<script>
+ function category(x){
+  console.log(x);
+  $.ajax({
+    url:`/admin/category-delete?id=${x}`,
+    type:'get',
+    contentType:'application/json',
+    dataType:'json',
+    success:function(res){
+      console.log(res.success);
+      if(res.success){
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'warning',
+  title: 'Not delete this category'
+})
+      }
+      else if(res.Delete){
+        location.href='/admin/catgeroy'
+      }
+    }
+  })
+ };
+</script>
+<%- include("../layout/end") %>

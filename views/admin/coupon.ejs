@@ -1,0 +1,359 @@
+<%- include('../layout/start') %>
+<section class="row w-100 m-0">
+    <section class="row" >
+  <%- include('../layout/adminNavbar') %>
+<section class=" col-12 col-md-10 m-0 ">
+   <div class="m-0">
+    <table class="table table-dark table-striped m-0">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">CODE</th>
+            <th scope="col">DISCOUNT</th>
+            <th scope="col">MAXMIMUM PRICE</th>
+            <th scope="col">MINMUM PRICE</th>
+            <th scope="col">EXPRIRE DATE</th>
+            <th scope="col">OPTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Data.forEach((element,i) => {%>
+              <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td><%= element.code %></td>
+            <td><%= element.discount%></td>
+      <td><%= element.Maximumprice %></td>
+            <td><%= element.Minimumprice %></td>
+               
+                <% if(element.is_expire==true){ %>
+                  <td><%=expireDate[i]%></td>
+            <% }else{ %>
+              <td>EXPIRED</td>
+             
+              <%}  %>
+            <td>
+              <button type="button" class="btn primary-btn" data-bs-toggle="modal" data-bs-target="#<%=element.code%>value" >EDIT </button>
+              
+              <a class="btn btn-danger" href="/admin/delete-coupon?id=<%= element._id %>">DELETE</a>
+ <!-- EDIT COUPON -->
+ <div class="modal fade" id="<%=element.code%>value" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title  text-dark" id="exampleModalLabel">ADD COUPON</h5>
+        <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form2" method="post" action="/admin/edit-coupon?id=<%=element._id %>">
+          <div class="mb-2">
+            <label for="recipient-name" class="col-form-label text-dark">CODE</label>
+            <input name="code" type="text" value="<%= element.code %>" class="form-control" id="Ecode">
+            <small class="text-danger Eerror"></small>
+          </div>
+          <div class="mb-2">
+            <label for="message-text" class="col-form-label  text-dark">DISCOUNT</label>
+            <input name="discount" type="text" value="<%= element.discount %>" class="form-control" id="Ediscount">
+            <small class="text-danger Eerror"></small>
+
+          </div>
+          <div class="mb-2">
+             <label for="message-text" class="col-form-label  text-dark">MINIMUM PRICE</label>
+             <input name="min" type="text"  value="<%= element.Minimumprice %>" class="form-control" id="Emin">
+            <small class="text-danger Eerror"></small>
+
+           </div>
+           <div class="mb-2">
+             <label for="message-text" class="col-form-label  text-dark">MAXIMUM PRICE</label>
+             <input name="max" type="text" value="<%= element.Maximumprice %>" class="form-control" id="Emax">
+            <small class="text-danger Eerror"></small>
+
+           </div>
+           <div class="mb-2">
+             <label for="message-text" class="col-form-label  text-dark">EXPIRE DATE</label>
+             <input name="date" type="date" value="<%=expireDate[i]%>" class="form-control" id="Edate">
+            <small class="text-danger Eerror"></small>
+           </div>
+           <button type="submit" class="btn btn-primary  text-dark">Send message</button>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+          </td>
+
+    
+          </tr>
+       <%     }); %>
+          
+       
+        </tbody>
+      </table>
+   </div>
+   <button type="button" class="btn primary-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" >ADD COUPON</button>
+
+   <!-- ///////////////ADD COUPON//////////////////// -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">ADD COUPON</h5>
+           <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           <form id="form1">
+             <div class="mb-2">
+               <label for="recipient-name" class="col-form-label">CODE</label>
+               <input type="text" class="form-control" id="code">
+               <small class="text-danger error"></small>
+             </div>
+             <div class="mb-2">
+               <label for="message-text" class="col-form-label">DISCOUNT</label>
+               <input type="text" class="form-control" id="discount">
+               <small class="text-danger error"></small>
+
+             </div>
+             <div class="mb-2">
+                <label for="message-text" class="col-form-label">MINIMUM PRICE</label>
+                <input type="text" class="form-control" id="min">
+               <small class="text-danger error"></small>
+
+              </div>
+              <div class="mb-2">
+                <label for="message-text" class="col-form-label">MAXIMUM PRICE</label>
+                <input type="text"  class="form-control" id="max">
+               <small class="text-danger error"></small>
+
+              </div>
+              <div class="mb-2">
+                <label for="message-text" class="col-form-label">EXPIRE DATE</label>
+                <input type="date" class="form-control" id="date">
+               <small class="text-danger error"></small>
+              </div>
+              <button type="submit" class="btn btn-primary">Send message</button>
+           </form>
+         </div>
+        
+       </div>
+     </div>
+   </div>
+  
+</section>
+</section>
+  
+</section>
+<script>
+     const form=document.getElementById('form1')
+  const code=document.getElementById('code')
+  const min=document.getElementById('min')
+  const max=document.getElementById('max')
+  const expire=document.getElementById('date')
+  const discount=document.getElementById('discount')
+
+  
+
+  const seterror=(element,message)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.error')
+
+      errorDisplay.innerText=message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const setSuccess=(element)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.error')
+
+      errorDisplay.innerText=''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+    
+  form.addEventListener('submit',e=>{
+ 
+    e.preventDefault()
+    let check=validate()
+    if(check){
+        console.log('hhds');
+        submitForm()
+    }
+})
+    function validate(){
+        let check=true
+      const couponcode=code.value.trim()
+      const couponmin=min.value.trim()
+      const couponmax=max.value.trim()
+      const couponexpire=expire.value
+      const coupondiscount=discount.value.trim()
+      console.log(couponexpire);
+   
+    
+      const numberRejex=/^[1-9]\d*$/
+if(couponcode==''){
+  seterror(code,'This field requred')
+   check=false
+}else {
+  setSuccess(code)
+}
+//////DISCOUNT/////
+if(coupondiscount==''){
+  seterror(discount,'This field requred')
+   check=false
+}else if(coupondiscount<0||coupondiscount>100){
+    seterror(discount,'This enter maximum 100')
+     check=false
+
+}else if(!numberRejex.test(coupondiscount)){
+    seterror(discount,'This enter Number')
+     check=false
+}
+else {
+  setSuccess(discount)
+}
+/////BRAND////
+if(couponexpire==''){
+  seterror(expire,'This field requred')
+   check=false
+}else {
+  setSuccess(expire)
+}
+////////PRICE/////
+if(couponmax==''){
+  seterror(max,'This field requred')
+   check=false
+}else if(!numberRejex.test(couponmax)){
+    seterror(max,'This enter Number')
+     check=false
+}else {
+  setSuccess(max)
+}
+///////DISCOUNT////
+if(couponmin==''){
+  seterror(min,'This field requred')
+   check=false
+}else if(!numberRejex.test(couponmin)){
+    seterror(min,'This enter Number')
+     check=false
+}else {
+  setSuccess(min)
+}
+
+    return check
+    }
+
+function submitForm(){
+    let check=true
+      const Code=code.value.trim()
+      const Min=min.value.trim()
+      const Max=max.value.trim()
+      const Expire=expire.value
+      const Discount=discount.value.trim()
+    $.ajax({
+        url:'/admin/add-coupon',
+        type:'post',
+        dataType:'json',
+        contentType:'application/json',
+        data:JSON.stringify({Code,Min,Max,Expire,Discount}),
+        success:(res)=>{
+            if(res.success){
+                $('#close').click()
+                location.href='/admin/coupon'
+            }
+        }
+
+    })
+}
+
+
+/////////////
+const form2=document.getElementById('form2')
+  const Ecode=document.getElementById('Ecode')
+  const Emin=document.getElementById('Emin')
+  const Emax=document.getElementById('Emax')
+  const Eexpire=document.getElementById('Edate')
+  const Ediscount=document.getElementById('Ediscount')
+
+  
+
+  const Eseterror=(element,message)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.Eerror')
+
+      errorDisplay.innerText=message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const EsetSuccess=(element)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.Eerror')
+
+      errorDisplay.innerText=''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+    
+  form2.addEventListener('submit',e=>{
+ 
+      const couponcode=Ecode.value.trim()
+      const couponmin=Emin.value.trim()
+      const couponmax=Emax.value.trim()
+      const couponexpire=Eexpire.value
+      const coupondiscount=Ediscount.value.trim()
+      console.log(couponexpire);
+   
+    
+      const numberRejex=/^[1-9]\d*$/
+if(couponcode==''){
+  Eseterror(Ecode,'This field requred')
+  e.preventDefault()
+}else {
+  EsetSuccess(Ecode)
+}
+//////DISCOUNT/////
+if(coupondiscount==''){
+  Eseterror(Ediscount,'This field requred')
+  e.preventDefault()
+}else if(coupondiscount<0||coupondiscount>100){
+    Eseterror(Ediscount,'This enter maximum 100')
+    e.preventDefault()
+
+}else if(!numberRejex.test(coupondiscount)){
+    Eseterror(Ediscount,'This enter Number')
+    e.preventDefault()
+}
+else {
+  EsetSuccess(Ediscount)
+}
+/////BRAND////
+if(couponexpire==''){
+  Eseterror(Eexpire,'This field requred')
+  e.preventDefault()
+}else {
+  EsetSuccess(Eexpire)
+}
+////////PRICE/////
+if(couponmax==''){
+  Eseterror(Emax,'This field requred')
+  e.preventDefault()
+}else if(!numberRejex.test(couponmax)){
+    Eseterror(Emax,'This enter Number')
+    e.preventDefault()
+}else {
+  EsetSuccess(Emax)
+}
+///////DISCOUNT////
+if(couponmin==''){
+  Eseterror(Emin,'This field requred')
+  e.preventDefault()
+}else if(!numberRejex.test(couponmin)){
+    Eseterror(Emin,'This enter Number')
+     e.preventDefault()
+}else {
+  EsetSuccess(Emin)
+}
+
+}) 
+
+</script>
+
+<%- include('../layout/end') %>

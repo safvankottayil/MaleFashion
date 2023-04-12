@@ -1,0 +1,103 @@
+<%- include('../layout/start') %>
+    <%- include('../layout/navbar',{x}) %>
+        <div class="container-xl">
+            <div class="row justify-content-center">
+            <% for (let i = 0; i < Data.length; i++) {%>
+            
+                
+           
+                <div class="col-12 col-md-6 ">
+                    <% if(ischeckout){ %>
+                    <a href="/checkout?index=<%=i%>">
+                        <% }else{ %>
+                            <a href="/add-address?index=<%=i%>">               
+                            <% } %>
+                    <div class="card shadow p-2 m-3">
+                        <div class="w-100 d-flex justify-content-around">
+                            <p><b>NAME:</b><%= Data[i].name %></p>
+                            <p><b>mobile:</b><%= Data[i].mobile1 %></p>
+                        </div>
+
+                        <div class="w-100 d-flex justify-content-around">
+                            <p><b>PINCODE:</b><%= Data[i].pincode %></p>
+                            <p><b>LOCALIRTY:</b><%= Data[i].location1 %></p>
+                        </div>
+
+
+                        <div class="w-100 d-flex justify-content-around">
+                            <p><b>ADDRESS:</b><%= Data[i].address %></p>
+                            
+                        </div>
+
+                        <div class="w-100 d-flex justify-content-around">
+                            <p><b>DISTRICT:</b><%= Data[i].district %></p>
+                            <p><b>STATE:</b><%= Data[i].state %></p>
+                        </div>
+
+                        <div class="w-100 d-flex justify-content-around">
+                            <p><b>LANDMARK:</b><%= Data[i].landmark %></p> <p><b>ALTERNATE PHONE:</b><%= Data[i].mobile2 %></p>
+                              </div>
+
+                            </a>
+                              <div class="w-100 d-flex justify-content-around">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">
+
+                                    DELETE
+                                  </button>
+                                </div>
+                                
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                
+                                      <!-- Modal Header -->
+                                      <div class="modal-header">
+                                        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                      </div>
+                                
+                                      <!-- Modal body -->
+                                      <div class="modal-body d-flex justify-content-between">
+                                  <p><b>  Do you want to delete this adress?</b></p>
+                                    <a href="/delete-address?id=<%= Data[i]._id %>"><button class="btn btn-danger">OK</button></a>
+                                      </div>
+                                
+                                      <!-- Modal footer -->
+                                      
+                                
+                                    </div>
+                                  </div>
+                                  </div>
+                    </div>
+                    
+                </div>
+                
+                </div>
+            <%} %>
+
+                
+            </div>
+            <% if(deleteAlert){ %>
+                <script>
+   const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'succsssfully delete address'
+})
+                    
+                </script>
+                <% } %>
+            <%- include('../layout/footer') %>
+                <%- include('../layout/end') %>

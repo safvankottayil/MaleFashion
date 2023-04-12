@@ -1,0 +1,112 @@
+<%- include('../layout/start') %>
+<%- include('../layout/navbar',{x}) %>
+<style>
+    .pricebox{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @media (max-width:500px) {
+        .pricebox{
+        display: flex;
+        flex-direction: column;
+    }
+        
+    }
+</style>
+<section class="p-1" style="background-color: rgb(214, 216, 216);">
+<section class="container-xl  ">
+    <div class="m-0 row d-flex justify-content-center w-100">
+    <div class="col-12 p-0">
+        <div class="my-3 shadow bg-white py-3 ps-3, width:100%  "  style=" border-radius: 5px;">
+            <div class="ps-2" >
+            <h5><b>Delivery Address</b></h5>
+            <p class="my-2"><%= Data[0].address.name %></p>
+            <address class="my-2">
+                <%= Data[0].address.address %>
+            </address>
+            <h5><b>phone numbers</b></h5>
+            <p><%= Data[0].address.mobile1 %><br><%= Data[0].address.mobile2 %></p>
+        </div>
+        </div>
+    </div>
+</div>
+<% Data.forEach(element => {%>
+    
+
+        <div class="py-3 ps-3 mb-2 shadow bg-white w-100  d-flex"  style=" border-radius: 5px;">
+ <div class="row w-100 ">
+            <div class="col-12 col-md-5 d-flex">
+            <div>
+                <img class="pe-3" style="height:120px;" src="product/<%=element.product_id.image[0]%>" alt="">
+            </div>
+            <div >
+                    <h6><%=element.product_id.title%>  (Item<%=element.quantity%>)</h6>
+                    <p><b>size:</b> <%=element.size%> <b>color:</b> <%=element.color%></p>
+                    <h5 ><span class="mx-2">₹<%=element.totalprice-element.totaldiscount%></span><br><small class="mx-2 text-danger text-decoration-line-through">₹<%=element.totalprice%></small><span class="text-success mx-2">18% off</span></h5>
+
+            </div>
+            <!--  -->
+            
+        </div>
+
+        <div class="col-12 col-md-7 my-2 d-flex flex-column justify-content-evenly fs-16 ">
+            <div class="d-flex align-items-center justify-content-evenly ">
+                <small class="text-nowrap">ORDER SUCCESS<br>
+                <%=element.date %></small>
+                
+                <span class="bg-success mx-2" style="height: 3px; width: 80%;"></span>
+                    <% if(element.status=='pending'){ %>
+                <small class="text-nowrap">DELIVERY DATE
+                    <br><%= element.arrive_date%>
+                </small>
+                <%}else{%>
+                    <% if(element.status=='cancelled'){ %>
+                    <small class="text-nowrap text-danger">CANCELLED DATE
+                        <br><%= element.arrive_date%></small>
+                        <% }else{ %>
+                            <small class="text-nowrap">DELIVERY DATE
+                                <br><%= element.arrive_date%>
+                            <% } %>
+                    <% } %>
+            </div>
+            <div class="d-flex justify-content-between ">
+                <% if(element.status=='pending'){ %>
+                    <span><b>status: </b><span class="text-warning">pending</span></span>
+                <%}else if(element.status=='cancelled'){%>
+                    <span ><b>status: </b><span class="text-danger">cancelled</span> </span>
+                    <% }else if(element.status=='delivered'){ %>
+                        <span ><b>status: </b><span class="text-success">delivered</span> </span>
+                    <% }else if(element.status=='on the way'){ %>
+                        <span ><b>status: </b><span class="text-success">ontheway</span> </span>
+                 <% }else{ %>
+                  <span ><b>status: </b><span class="text-danger">Returned</span> </span>
+                    <% } %>
+            </div>
+         </div>
+        
+        </div>
+        </div>
+
+        <%}); %>
+        <div class="col-12  my-3 p-0">
+            <div  class="bg-white h-100 px-2 py-3  pricebox ">
+                <% if(Data[0].status=='cancelled'){ %>
+                <% }else{ %>
+                    <h5  ><a href="/orderCancel?orderhashID=<%= Data[0].order_hash%>&orderview=true" class="text-danger">CANCEL ORDER</a></h5>
+
+                    <% } %>
+
+                    
+                 <h5 class="me-3"><b>TOTAL PRICE:</b>₹<%= subtotalprice %></h5>
+            </div>
+
+           
+         </div>
+  
+   
+<!-- </div> -->
+</section>
+</section>
+<%- include('../layout/footer') %>
+<%- include('../layout/end') %>

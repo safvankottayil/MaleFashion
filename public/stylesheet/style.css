@@ -1,0 +1,147 @@
+/* Hide the default checkbox
+/*  */
+/* .gradient-custom {
+  /* fallback for old browsers */
+  /* background: #6a11cb; */
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1)); */
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1)) */
+  /* } */
+
+
+  /* ////////////////////////admin/////////////// */
+  
+
+  .gradient-custom{
+    position: absolute;
+     height: 650px;
+  }
+  .otp{
+    height: 650px;
+  }
+  .dark1{
+    background: none;
+    /* background-color:rgba(0,0,0, 0.2); */
+    backdrop-filter: blur(4px) !important;
+    
+  }
+  .dark{
+    background: none !important;
+  }
+  .err-div{
+    height: 18px;
+  }
+  /* From uiverse.io by @alexruix */
+.input {
+ line-height: 28px;
+ border: 2px solid transparent;
+ border-bottom-color: #777;
+ padding: .2rem 0;
+ outline: none;
+ background-color: transparent;
+ color: #0d0c22;
+ transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.input:focus, input:hover {
+ outline: none;
+ padding: .2rem 1rem;
+ border-radius: 1rem;
+ border-color: #7a9cc6;
+}
+
+.input::placeholder {
+ color: #777;
+}
+
+.input:focus::placeholder {
+ opacity: 0;
+ transition: opacity .3s;
+}
+.verify-email{
+  font-size: 2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  animation: sucsess 1s infinite alternate;
+
+}
+@keyframes sucsess{
+  0%{
+    color: red;
+  }
+  25%{
+  color: black;
+  }50%{
+    color: green;
+  }
+  75%{
+    color: aqua;
+  }
+  100%{
+    color: #7a9cc6;
+  }
+}
+.verify-btn{
+  font-size:2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.verify-card{
+  width: 75%;
+}
+@media (max-width:600px) {
+  .verify-card{
+    width: 90%;
+  }
+}
+.admin-nav{
+  /* position: absolute; */
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  width: 70px;
+  overflow: hidden;
+  transition: width 0.2s linear;
+  box-shadow: 0px 20px 35px rgba(0,0,0,0.1);
+}
+.nav-ul li a img {
+  margin: 20px;
+  
+}
+.nav-ul li a span {
+  display: flex;
+  align-items: center;
+}
+
+.admin-nav:hover{
+  width: 200px;
+}
+/* .admin-logo{
+  display: flex;
+  align-items: center;
+} */
+
+.catgeory-edit{
+  border-radius: 8px;
+  height: 70%;
+  width: 500px;
+  background-color: #7a9cc6;
+}@media (max-width:500px){
+  .catgeory-edit{
+    height: 70%;
+    width: 100%;
+    background-color: #7a9cc6;
+  }
+}
+.product-form{
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}
+
+.fs-16 {
+  font-size: 1rem;
+}

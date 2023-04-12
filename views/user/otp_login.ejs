@@ -1,0 +1,50 @@
+<%- include('../layout/start') %>
+<%- include('../layout/navbar',{x}) %>
+<section class="otp">
+    <img class=" gradient-custom  vw-100" src="image/OTP.jpeg" alt="">
+
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5 dark">
+          <div class="card dark1 text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <div class="mb-md-5 mt-md-4 pb-3">
+               
+                
+                <h2 class="fw-bold mb-2 text-uppercase">otp-login</h2>
+                <!-- <p class="text-white-50 mb-5">Please enter your login and password!</p> -->
+                    <form action="/otp-login" method="post" id="loginform">
+                <div class="form form-white mb-2">
+                    <label class="form-label" for="typeEmailX">MOBILE</label>
+                  <input type="" id="loginEmail" name="mobile" class="form-control form-control-lg" />
+                  <small id="login-e-error" class="text-danger"><b><%=message%></b></small>
+                </div>
+  
+                <!-- <p class="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
+  
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">submit</button>
+              </form>
+              </div>
+  
+              <div>
+                <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
+                </p>
+
+              </div>
+              <div>
+                <p class="mb-0"><a href="/login" class="text-white-50 fw-bold">login</a>
+                </p>
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script> 
+  
+
+<%- include('../layout/end') %>
