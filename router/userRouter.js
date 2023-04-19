@@ -1,9 +1,12 @@
 const express=require('express')
 const  user_router=express()
 
+const wishlistcontroller=require('../controllers/whishlistcontroller')
 const usercontroller=require('../controllers/usercontrollers')
 const userAuth=require('../middlewere/userAuth')
 const ordercontroller=require('../controllers/Ordercontrollers')
+const couponController=require('../controllers/coupenContollers')
+const reviewController=require('../controllers/reviewControllers')
 user_router.set('views','./views/user')
 user_router.use(express.static('./public'));
 
@@ -32,17 +35,31 @@ user_router.get('/cart', userAuth.isLogin,usercontroller.CartRender)
 user_router.post('/addCart',userAuth.isLogin,usercontroller.addCart)
 user_router.post('/decrement',userAuth.isLogin,usercontroller.decrement)
 user_router.post('/increment',userAuth.isLogin,usercontroller.increment)
-user_router.post('/deletecart',usercontroller.deletecart)
-user_router.post('/profileEdit',usercontroller.profileEditOtpsend)
-user_router.post('/profieEditOtp',usercontroller.profileOtpVerify)
-user_router.post('/editedProfile',usercontroller.submiteditedProfile)
-user_router.get('/checkout',usercontroller.rendercheckout)
+user_router.post('/deletecart',userAuth.isLogin,usercontroller.deletecart)
+user_router.post('/profileEdit',userAuth.isLogin,usercontroller.profileEditOtpsend)
+user_router.post('/profieEditOtp',userAuth.isLogin,usercontroller.profileOtpVerify)
+user_router.post('/editedProfile',userAuth.isLogin,usercontroller.submiteditedProfile)
+user_router.get('/checkout',userAuth.isLogin,usercontroller.rendercheckout)
 ///////////////////ORDER CONTROLERR//////////////
-user_router.get('/orderinsert',ordercontroller.insertOrder)
-user_router.get('/orsersuccess',ordercontroller.ordersuccesspage)
-user_router.get('/orderCancel',ordercontroller.oredercancel)
-user_router.get('/orderlist',ordercontroller.renderOrderlist)
-user_router.get('/orderview',ordercontroller.renderorderview)
+user_router.get('/orderinsert',userAuth.isLogin,ordercontroller.insertOrder)
+user_router.get('/orsersuccess',userAuth.isLogin,ordercontroller.ordersuccesspage)
+user_router.get('/orderCancel',userAuth.isLogin,ordercontroller.oredercancel)
+user_router.get('/orderlist',userAuth.isLogin,ordercontroller.renderOrderlist)
+user_router.get('/orderview',userAuth.isLogin,ordercontroller.renderorderview)
+
+user_router.post('/couponApply',userAuth.isLogin,couponController.couponApply)
+
+
+// // ///////WISHLIST//////////////
+user_router.get('/wishlist',userAuth.isLogin,wishlistcontroller.renderwishlist)
+user_router.get('/wishlistdelete',userAuth.isLogin,wishlistcontroller.deleteWishlist)
+// /////////////PERODUCT REVIEW//////////
+user_router.post('/addreview',userAuth.isLogin,reviewController.productReview)
+user_router.get('/reviewlike',userAuth.isLogin,reviewController.reviewlike)
+user_router.get('/reviewdislike',userAuth.isLogin,reviewController.reviewdislike)
+// user_router.get('*',(req,res)=>{
+//     res.render('404')
+// })
 
 
 

@@ -1,0 +1,76 @@
+<%- include('../layout/start') %>
+<style>
+ .scroll{
+  overflow: scroll;
+ }
+ ::-webkit-scrollbar {
+    display: none;
+}
+ 
+</style>
+<section style="background-color:  rgba(14, 11, 11, 0.938);" class="row vw-100 m-0 p-0  ">
+  
+  <%- include('../layout/adminNavbar') %>
+ 
+  <section class="col-12 col-md-10 w-100 vh-100 scroll  " style="position: relative;" >
+    <div    class=" sales w-100  py-4 row">
+    <h4 class="col-12 col-md-4"><b class="text-light">SALES REPORT</b></h4>
+    <div class="col-12 col-md-4 mt-3 d-flex justify-content-between align-items-center">
+        <form action="/admin/sales" method="post">
+        <input name="first" type="date">
+        <input name="last" type="date">
+        <button type="submit" class="btn btn-danger ">submit</button>
+    </form>
+    </div>
+    <!-- <button class="btn btn-danger mt-3">submit</button> -->
+    <div class="col-12 col-md-4 mt-3">
+      <a href="/admin/excelsheet"><button class="btn btn-danger">DOWLOAD</button></a>
+      <button class="btn btn-success" onclick="demoFromHTML()">PRINT</button>
+    </div>
+    </div>
+    <div id="dash">
+    <table id="salesTable" style="margin-top: 70px !important;"  class="mt-5 table table-dark">
+        <thead class="mt-4">
+          <tr>
+            <th scope="col">NO</th>
+            <th scope="col">NAME</th>
+            <th scope="col">PRODUCT</th>
+            <th scope="col">DATE</th>
+            <th scope="col">PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% filterData.forEach((value,i)=>{%>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td><%=value.address.name %></td>
+            <td><%=value.product_id.title %></td>
+            <td><%= value.date %></td>
+            <td>₹<%= value.totalprice-value.totaldiscount %></td>  
+              </tr>
+              <% })%>
+        
+       </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script >
+
+  function demoFromHTML() {
+  console.log('hdbvj');
+  printTable()
+  function printTable() {
+    var table = document.getElementById("salesTable");
+    var newWin = window.open('', 'Print-Window');
+    newWin.document.open();
+    newWin.document.write('<html><body onload="window.print()">' + table.outerHTML + '</html>');
+    newWin.document.close();
+    setTimeout(function () { newWin.close(); }, 10);
+  }
+
+  }
+</script>
+
+<%- include('../layout/end') %>

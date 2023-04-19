@@ -1,8 +1,314 @@
 <%- include('../layout/start') %>
-<section class="d-flex">
+<style>
+ 
+ 
+</style>
+<section style="background-color: rgba(5, 5, 5, 0.938);" class="row vw-100 m-0 p-0  ">
+  
   <%- include('../layout/adminNavbar') %>
-  <div style="width: 100%; height: 100px; background-color: aquamarine;" class=""></div>
+
+  <section class="col-12 col-md-10 w-100 vh-100 scroll" >
+    <div class="row my-2 px-4 ">
+      <div style="height: 150px;" class="col-12  col-md-3 p-2 ">
+         <div class=" radius card  h-100 bg-dark shadow px-5 d-flex flex-row  justify-content-between align-items-center" >
+        <div class="d-flex flex-column justify-content-around align-items-center"><h5 style="font-weight:900;" class="text-uppercase text-light mb-3">users</h5>
+        <h5 style="font-weight:900;" class="text-uppercase text-light"><%=users%></h5></div>
+        <div>
+          <img style="height: 90px;" src="/image/user.png" alt="">
+        </div>
+      </div>
+    </div>
+      <div style="height: 150px;" class="col-12  col-md-3 p-2">
+         <div class=" radius card  h-100 bg-dark shadow d-flex flex-row  justify-content-between align-items-center px-5">
+          <div class="d-flex flex-column justify-content-around align-items-center"><h5 style="font-weight:900;" class="text-uppercase text-light  mb-3">products</h5>
+            <h5 style="font-weight:900;" class="text-uppercase text-light"><%=products%></h5></div>
+          <div>
+            <img style="height: 90px;" src="/image/brand-identity.png" alt="">
+          </div>
+      </div>
+    </div>
+      <div style="height: 150px;" class="col-12  col-md-3 p-2"> 
+        <div class=" radius card  h-100 bg-dark shadow d-flex flex-row  justify-content-between align-items-center px-5">
+          <div class="d-flex flex-column justify-content-around align-items-center"><h5 style="font-weight:900;" class="text-uppercase text-light  mb-3">profit</h5>
+            <h5 style="font-weight:900;" class="text-uppercase text-light">₹ <%=profit%></h5></div>  <div>
+            <img style="height: 90px;" src="/image/profits.png" alt="">
+          </div>
+
+      </div></div>
+      <div style="height: 150px;" class="col-12  col-md-3 p-2"> 
+        <div class=" radius card  h-100 bg-dark shadow d-flex flex-row  justify-content-between align-items-center px-5">
+          <div class="d-flex flex-column justify-content-around align-items-center"><h5 style="font-weight:900;" class="text-uppercase text-light  mb-3">revenue</h5>
+            <h5 style="font-weight:900;" class="text-uppercase text-light">₹ <%=totalrevenue%></h5></div>  <div>
+            <img style="height: 90px;" src="/image/salary.png" alt="">
+          </div>
+        </div></div>
+    </div>
+    <div class="row my-2 d-flex justify-content-around w-100 m-0">
+      <div  class="col-12 col-md-8 p-2">
+        <div class="radius card bg-dark shadow"> <canvas id="myChart"></canvas></div>
+      </div>
+      <div class="col-12 col-md-4 p-2">
+        <div class="radius card bg-dark shadow"> <canvas  id="myChart2"></canvas></div>
+      
+
+      </div>
+    </div>
+
+    <!-- 333333333333333333333333 -->
+    <div class="row my-2 d-flex justify-content-around w-100 m-0">
+      <div class="clo-12 col-md-4 p-2 "> <div class="radius card bg-dark shadow m-0 w-100 ">
+      <ul>
+        <li class=" py-3 text-uppercase text-light liststyle">user</li>
+        
+        <% user.forEach((element,i) => {%>
+          
+     
+        <li class="row py-3  text-light  d-flex align-items-center " >
+          <div class="col-6 d-flex align-items-center ">
+          <div>  <img class="mx-2" style="height: 20px;" src="/image/user (1).png" alt=""></div>
+         <div >  <b class="m-0 p-0"><%=element.name %></b> <br><small class="p-0 m-0" ><%=element.email %></small></div>
+        </div>
+         <div class="d-flex justify-content-end flex-row col-6 ">
+          <div  style="height: 30px; width: 70px;" class=" me-2 card shadow d-flex justify-content-center align-items-center bg-danger text-center pt-1"><b>ACTIVE</b></div>
+         </div>
+        
+        </li>
+        <%  }); %>
+       
+      </ul>
+
+
+      </div></div>
+      <div class="clo-12 col-md-8 p-2 "> <div class="radius card bg-dark shadow m-0 w-100 ">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col">NO</th>
+              <th scope="col">NAME</th>
+              <th scope="col">PRODUCT ID</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">PRICE</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <% showorders.forEach((value,i )=> {%>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td><%=value.address.name %></td>
+              <td><%=value.product_id%></td>
+              <td><%=value.status %></td>
+              <td>₹<%=value.totalprice-value.totaldiscount%></td>
+            </tr>
+            <%  }); %>
+          </tbody>
+        </table>
+      </div></div>
+</div>
+    
+    
+  </section>
 
   
 </section>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  let Data
+  let month=[]
+  let profit=[]
+let revenue=[]
+$(document).ready(function(){
+  $('#graff').hide().click()
+})
+Data='<%=JSON.stringify(Graf)%>';
+   Data= JSON.parse(Data.replace(/&#34;/g, '"'));
+   console.log(Data);
+  month=Data.map((value)=>{
+    if(value.x==1){
+      return 'JAN'
+    }
+    if(value.x==2){
+      return 'FEB'
+    }
+    if(value.x==3){
+      return 'MAR'
+    }if(value.x==4){
+      return 'APR'
+    }if(value.x==5){
+      return 'MAY'
+    }if(value.x==6){
+      return 'JUN'
+    }if(value.x==7){
+      return 'JUL'
+    }if(value.x==8){
+      return 'AUG'
+    }if(value.x==9){
+      return 'SEP'
+    }if(value.x==10){
+      return 'OCT'
+    }if(value.x==11){
+      return 'NOV'
+    }if(value.x==12){
+      return 'DEC'
+    }
+   
+  })
+
+  revenue=Data.map((value)=>{
+    return value.revenue
+  })
+  profit =Data.map(value=>{
+    return value.profit
+  })
+  console.log(profit);
+  console.log(revenue);
+console.log(month);
+
+const ctx = document.getElementById('myChart');
+Chart.defaults.color = '#fff';
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels:month,
+    datasets: [{
+      label: 'PROFIT',
+      data:profit,
+      borderWidth: 1,
+      backgroundColor: 'green',
+    },{
+      label: 'REVENUE',
+      data:revenue,
+      borderWidth: 1,
+      backgroundColor: 'rgba(54, 162, 235, 1)',
+    }
+  ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        grid:{
+          display:false
+        },
+       
+        beginAtZero: true
+      },
+      x: {
+        grid:{
+          display:false
+        }
+      }
+
+    },
+    layout: {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 0,
+        bottom: 0
+      }
+    }
+    ,
+    plugins: {
+      title: {
+        display: true,
+        text: 'My Chart Title'
+      },
+    legend: {
+      display:true,
+      position:'bottom',
+      labels: {
+         fontColor: 'black'
+      }
+   }
+   
+    }
+  }
+});
+
+let orderstatus='<%=JSON.stringify(orderstatus)%>'
+orderstatus=JSON.parse(orderstatus)
+
+console.log(orderstatus);
+
+
+const ctx2 = document.getElementById('myChart2');
+// ctx2.height=300;
+
+Chart.defaults.color = '#fff';
+new Chart(ctx2, {
+  type: 'doughnut',
+  data: {
+    labels: [
+    'CANCELLED',
+    'ON THE WAY',
+    'PENDING',
+    'DELEVERED',
+    'RETURNED'
+  ],
+  datasets: [{
+    label: 'ORDER',
+    data:orderstatus,
+    backgroundColor: [
+      'red',
+      'rgb(54, 162, 235)',
+      'yellow',
+      'green',
+      'orenge'
+    ],
+    hoverOffset: 4
+  }]
+  },
+  options: {
+    responsive: true,
+    elements: {
+      point:{
+          radius: 0
+      }
+                },
+    scales: {
+      y: {
+        grid:{
+          display:false
+        },
+        ticks: {
+        display: false
+},
+       
+        beginAtZero: true
+      },
+      x: {
+        grid:{
+          display:false
+        },
+        ticks: {
+        display: false
+},
+      }
+
+    },
+   
+    
+    plugins: {
+      title: {
+        display: true,
+        text: 'ORDER STATUS'
+      },
+    legend: {
+      display:false,
+      position:'left',
+     
+      labels: {
+         fontColor: 'black'
+      }
+   }
+   
+    }
+  }
+});
+
+
+ </script> 
 <%- include('../layout/end') %>

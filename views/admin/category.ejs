@@ -1,12 +1,16 @@
 <%- include("../layout/start") %>
-<section class="row w-100">
+<section class="row m-0 w-100" style="background-color: rgba(5, 5, 5, 0.938);">
 
   <%- include("../layout/adminNavbar") %>
 
-  <section class="col-10  data-bs-spy="scroll>
-    <table class=" border table">
+  <section class="col-12 col-md-10">
+    <div class="vh-100 scroll py-2 ">
+      <div class="pt-2   radius w-100 d-flex justify-content-center bg-dark">
+        <a href="/admin/add-category"> <button class=" btn btn-primary">ADD CATGEORY</button></a>
+       </div>
+       <div class="radius p-2 bg-dark">
+    <table class=" table  table-dark table-striped">
       <thead>
-         
         <tr>
           <th scope="col">ID</th>
           <th scope="col">IMAGE</th>
@@ -31,9 +35,9 @@
        <% } %>
       </tbody>
     </table>
-    <div class="w-100 d-flex justify-content-center">
-      <a href="/admin/add-category"> <button class=" btn btn-primary">ADD CATGEORY</button></a>
-     </div>
+  </div>
+    </div>
+ 
   </section>
 </section>
 <script>

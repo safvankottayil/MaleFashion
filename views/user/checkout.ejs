@@ -159,26 +159,46 @@
                                
                             </ul>
                             <ul class="checkout__total__all">
-                                <li>Subtotal <span>$<%= subtotal %></span></li>
-                                <li>Discount <span class="text-success"><%= subTotaldiscount %></span></li>
-                                <li>Total <span><%=subtotal-subTotaldiscount %></span></li>
+                                <li>Subtotal <span>₹<%= subtotal %></span></li>
+                                <li>Discount <span class="text-success">₹<%= subTotaldiscount %></span></li>
+                                <% if(CartData.couponDiscount){ %>
+                                <li>Coupon Discount <span class="text-success">₹<%= CartData.couponDiscount %></span></li>
+                                <% } %>
+                                <% if(CartData.couponDiscount){ %>
+                                    <li>Total <span>₹<%=subtotal-subTotaldiscount-CartData.couponDiscount %></span></li>
+                                    <% }else{ %>
+                                <li>Total <span>₹<%=subtotal-subTotaldiscount %></span></li>
+                                <% } %>
+                                <li >Wallet <span class="text-dark"><%if(user.wallet){%>
+                                    ₹ <%= user.wallet%>
+                                <% }else{ %>
+                                    ₹ 0
+                                <% } %></span></li>
                             </ul>
                             <div class="">
                                 <label for="pyment">
                                    
-                                    <input name="payment" value="cash"  type="radio" id="cashondelivery">
+                                    <input name="payment" value="cash"  type="radio" id="cash">
                                     cash on delivery
-                                    <!-- <span class="checkmark"></span> -->
-                                <div class="w-75"><small class=" text-danger error" ></small></div>
-
                                 </label>
                             </div>
                             <div class="">
                                 <label for="pyment">
                                     
-                                    <input name="payment" value="paypal" type="radio" id="paypal">
-                                    Paypal
-                                    <!-- <span class="checkmark"></span> -->
+                                    <input name="payment" value="paypal" type="radio" id="razerpay">
+                                    Razerpay
+                                </label>
+                            </div>
+                            <div class="">
+                                <label for="pyment">
+                                    <% if(user.wallet>=subtotal-subTotaldiscount){ %>
+                                    <input name="payment" value="wallet" type="radio" id="wallet">
+                                    <% }else{ %>
+                                        <input disabled name="payment" value="wallet" type="radio" id="wallet">
+                                        <% } %>
+                                    wallet
+                                 
+                                    <div class="w-75"><small class=" text-danger error text-nowrap"  ></small></div>
                                 </label>
                             </div>
                            
@@ -215,82 +235,8 @@
         </div>
     </div>
 </section>
-<!-- <section>
 
-</section> -->
-<!-- Checkout Section End
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="breadcrumb__text">
-                <h4>Check Out</h4>
-                <div class="breadcrumb__links">
-                    <a href="./index.html">Home</a>
-                    <a href="./shop.html">Shop</a>
-                    <span>Check Out</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section> -->
-<!-- Breadcrumb Section End -->
-<!-- Checkout Section Begin -->
-<!-- <section class="checkout spad">
-<div class="container">
-    <div class="checkout__form">
-        <form id="form1" action="" method="post">
-            <div class="row">
-                <div class="col-lg-8 col-md-6">
-
-                  <div  style="border-radius: 3px ; background-color: azure;"  class="p-2 shadow col-12">
-                    <div class=""> <input type="radio"><label class="ps-3" for="">CASH ON DELEVERY</label></div>
-                    <div style="height: 50px; " class="d-flex">
-                        <input class="h-100" disabled type="text"> 
-                        <input  class= "ms-2 h-100"  type="text">
-                        <div class="ms-2">
-                            <a  href="" class="primary-btn h-100 " type="text">CONFORM</a>
-                        </div>
-                    </div>
-                  </div>
-                  
-
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="checkout__order">
-                        <h4 class="order__title">Your order</h4>
-                        <div class="checkout__order__products">Product <span>Total</span></div>
-                       
-                            
-                       
-                        <ul class="checkout__total__products">
-                            <% CartData.products.forEach((element,i ) => {%>
-                            <li class="text-dark"><b><%=i+1 %>.<%= element.product.title %> (Items <%= element.stock %>)</b><span><%= element.totalprice %></span></li>
-                            <% }) %>
-                           
-                        </ul>
-                        <ul class="checkout__total__all">
-                            <li>Subtotal <span>$<%= subtotal %></span></li>
-                            <li>Discount <span class="text-success"><%= subTotaldiscount %></span></li>
-                            <li>Total <span><%=subtotal-subTotaldiscount %></span></li>
-                        </ul> -->
-                        <!-- <div class="checkout__input__checkbox">
-                            <label for="acc-or">
-                                Create an account?
-                                <input type="checkbox" id="acc-or">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div> -->
-                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua.</p> -->
-                       
-                      
-                    <!-- </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     
     const form1 = document.getElementById('form1')
@@ -303,7 +249,7 @@
     const state = document.getElementById('state')
     const landmark = document.getElementById('landmark')
     const mobile2= document.getElementById('mobile2')
-    const cashondelivery= document.getElementById('cashondelivery').value
+    const cashondelivery= document.getElementById('wallet')
     console.log(cashondelivery);
 
 
@@ -407,8 +353,88 @@
       }else{
         setSuccess(mobile2)
       }
+      if($('#cash').is(':checked')==true|| $('#razerpay').is(':checked')==true||$('#wallet').is(':checked')==true){
+        setSuccess(cashondelivery)
+      }else{
+        seterror(cashondelivery,'This field required')
+      }
 
     })
+
+
+
+
+let order='<%=JSON.stringify(order)%>'
+const index='<%=index%>'
+console.log(index);
+console.log(order);
+order=JSON.parse(order.replace(/&#34;/g,'"'))
+console.log(order);
+
+
+if(order){
+var options = {
+    "key": "rzp_test_zok7MLrdgkWRk1", // Enter the Key ID generated from the Dashboard
+    "amount":order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id":order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+      success()
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+const open= function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+if(order){
+    open()
+}
+}
+function success(){
+    $.ajax({
+        url:'/orderinsert?index='+index+'&type=razerpay',
+        type:'get',
+        dataType:'json',
+        contentType:'application/json',
+        success:(res)=>{
+            console.log(res);
+            location.href='/orsersuccess?orderhashID='+ res.order_uuid
+        }
+
+    })
+}
+
+
+
+
+
+
+
+
   </script>
 
 <%- include('../layout/footer') %>

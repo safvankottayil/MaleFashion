@@ -1,334 +1,423 @@
 <<%- include('../layout/start') %>
-<%- include('../layout/navbar',{x}) %>
-<style>
-li{
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-</style>
-    <!-- Shoping Cart Section Begin -->
-    <!-- <section class="shoping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class=" bg-light col-md-8 m-0 p-0">
-                    <div  class="shoping__cart__table m-0">
-                       
-                        <div class="row w-100 p-0 m-0 mb-2">
-                            <div style="height: 50px;" class="bg-white shadow col-12"></div>
-                        </div>
-
-<div class="row">
-                        <div class="col-4 m-0 d-flex flex-column align-items-center">
-                            <img style="width: 170px ; height: 170px;" src="img/product/product-1 - Copy (2) - Copy.jpg" alt="">
-                            <div class="d-flex my-3 align-items-center justify-content-center ">
-                                <button style="height: 30px; width:30px;" class="btn btn-outline-secondary rounded-pill ms-2">-</button>
-                                <input placeholder="1" class="rounded-pill border-0 mx-2" disabled style="width: 30px; height: 30px; background-color: aqua;" type="">
-                                <button style="height: 30px; width:30px;" class="btn btn-outline-secondary rounded-pill me-2" >+</button>
+    <%- include('../layout/navbar',{x}) %>
+        <style>
+            li {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+        <section class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__text">
+                            <h4>Shopping Cart</h4>
+                            <div class="breadcrumb__links">
+                                <a href="./index.html">Home</a>
+                                <a href="./shop.html">Shop</a>
+                                <span>Shopping Cart</span>
                             </div>
                         </div>
-                        <div class="col-8 m-0 d-flex flex-column">
-                            <b>afhdsffuha</b>
-                            <b>size</b>
-<p><b>1999</b><small>2000</small></b><b>10% offer</b></p>
-                        <h4>REMOVE</h4>
-                        </div>
-                       
-
-
-                    </div>
-                    <div class="row w-100 p-0 m-0 mb-2 ">
-                        <div style="height: 50px;" class="bg-white shadow col-12 d-flex justify-content-end ">
-                            <button class="btn primary-btn my-1">PLACE ORDER</button>
-                        </div>
-                    </div>
-
-
-
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-4 ">
-                    <div class="shoping__checkout p-3 bg-white shadow">
-                        <h4 class="text-uppercase">price detail</h4>
-                        <ul class="">
-                            <li><b>price</b><span>$454.98</span></li>
-                            <li> <b>discount</b><span>$454.98</span></li>
-                            <li> <b>delivery charges</b><span>$454.98</span></li>
-                            <li class="shadow"> <h5>total amount</h5><span>$454.98</span></li>
-
-
-                        </ul>
-                        <div class="d-flex justify-content-end mt-3">
-                            <a href="#" class= " primary-btn"> CHECKOUT</a>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            
-            </div>
-        </div>
-    </section> -->
-
-    <section class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__text">
-                        <h4>Shopping Cart</h4>
-                        <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
-                            <span>Shopping Cart</span>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-      <!-- Shopping Cart Section Begin -->
-      <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="shopping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-        
-                                <% cartData.products.forEach((element,i) => {%>
-                                    
-                              
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img style=" width: 100px;" src="product/<%=element.product.image[0]%>" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6><%=element.product.title%></h6>
-                                            <!-- <h5><%=element.product.price%></h5> -->
-                                            <h5 ><span class="mx-2">₹<%=element.product.price-element.product.discount%></span><br><small class="mx-2 text-danger text-decoration-line-through">₹<%=element.product.price%></small><span class="text-success mx-2"><%=(Math.round((element.product.discount*100)/element.product.price))%>% off</span></h5>
+        <!-- Shopping Cart Section Begin -->
+        <section class="shopping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="shopping__cart__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2 d-flex">
-                                                <button   onclick="decrement('<%=element.product._id%>')" style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;" class="de"><b><</b></button>
-                                                <input class="input" type="text" id="<%=element.product._id%>value" value="<%=element.stock%>">
-                                                <button   onclick="increment('<%=element.product._id%>')" style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;" class=""><b>></b></button>
+                                    <% cartData.products.forEach((element,i)=> {%>
 
+
+                                        <tr>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img style=" width: 100px;"
+                                                        src="product/<%=element.product.image[0]%>" alt="">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h6>
+                                                        <%=element.product.title%>
+                                                    </h6>
+                                                    <!-- <h5><%=element.product.price%></h5> -->
+                                                    <h5><span class="mx-2">₹<%=element.product.price%></span><br><small
+                                                            class="mx-2 text-danger text-decoration-line-through"></small><span
+                                                            class="text-success mx-2">
+                                                            <%=(Math.round((element.product.discount*100)
+                                                                /element.product.price))%>% off
+                                                        </span></h5>
+
+                                                </div>
+                                            </td>
+                                            <td class="quantity__item">
+                                                <div class="quantity">
+                                                    <div class="pro-qty-2 d-flex">
+                                                        <button onclick="decrement('<%=element.product._id%>')"
+                                                            style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;"
+                                                            class="de"><b>
+                                                                <</b></button>
+                                                        <input class="input" type="text"
+                                                            id="<%=element.product._id%>value"
+                                                            value="<%=element.stock%>">
+                                                        <button onclick="increment('<%=element.product._id%>')"
+                                                            style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;"
+                                                            class=""><b>></b></button>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td id="<%=element.product._id%>price" class="cart__price">₹
+                                                <%=element.totalprice%>
+                                            </td>
+
+
+                                            <td class="cart__close" data-bs-toggle="modal" data-bs-target="#myModal">
+                                                x</b></td>
+
+
+                                            <!-- The Modal -->
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <!-- <h4 class="modal-title">Modal Heading</h4> -->
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body d-flex justify-content-between">
+                                                            <p><b> Do you want to delete this product?</b></p>
+                                                            <button onclick="deletecart('<%=element.product._id%>')"
+                                                                class="btn btn-danger">OK</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td id="<%=element.product._id%>price" class="cart__price">₹<%=element.totalprice%></td>
-
-                                    
-                                    <td class="cart__close" data-bs-toggle="modal" data-bs-target="#myModal" >x</b></td>
-
-
-                                      <!-- The Modal -->
-                                <div class="modal" id="myModal">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                  
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                          <!-- <h4 class="modal-title">Modal Heading</h4> -->
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                  
-                                        <!-- Modal body -->
-                                        <div class="modal-body d-flex justify-content-between">
-                                    <p><b>  Do you want to delete this product?</b></p>
-                                      <button  onclick="deletecart('<%=element.product._id%>')" class="btn btn-danger">OK</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    </div>
-                                    <!-- moedl -->
-                                </tr>
-                        <%    }); %>
-                            </tbody>
-                        </table>
+                                            <!-- moedl -->
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                      
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn">
-                                <a href="#">Continue Shopping</a>
+                    <div class="col-lg-4">
+                        <div style="position: relative;" class="cart__discount">
+                            <h6>Discount codes </h6>
+                            <form id="form">
+                                <input type="text" placeholder="Coupon code">
+                                <button type="" id="coupon_show" class="ms-4" >SHOW</button>
+                            </form>
+                            <div id="coupon_area" class="bg-white p-2 shadow" style="width: 300px; position: absolute ; display: none;">
+                                <% if(cartData.couponID){ %>
+                                    <p class="text-danger">Coupon already used</p>
+                                    <% }else{ %>
+                    
+                                        <div>
+                                <% coupon.forEach(element => {%>
+                                
+                                <div style="height: 120px; " class="m-2 card shadow bg-white d-flex row">
+                                    <div class="w-25 h-100 d-flex justify-content-center align-items-center">
+                                        <img class="w-100" style="height: 50px ;width: 80px;"
+                                            src="/image/discount-coupon (2).png" alt="">
+                                    </div>
+                                    <div 
+                                        class="w-75 h-100 d-flex flex-column justify-content-center align-items-center">
+                                        <p class="p-0 m-0">Get extra <%=element.discount%>% off on Maximum amount ₹<%=element.MinimumDiscount %> (price inclusive of
+                                            cashback) <button onclick="couponApply('<%=element._id%>')" style="border: 0px sol
+                            white;border-radius: 3px; color: aliceblue;" class=" bg-success">click</button></p>
+
+                                    </div>
+                                </div>
+                                
+                                <%}); %>
+                            </div>
+                                <% } %>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
-                            </div>
+                        <div class="cart__total">
+                            <h6>Cart total</h6>
+                            <ul>
+                                <li>Subtotal <span id="subtotal">₹<%=subtotal%></span></li>
+                                <li>Discount <span id="subtotalDiscount" class="text-success">₹<%=subTotaldiscount%>
+                                            </span></li>
+                                            <% if(cartData.couponID){ %>
+                                                <li>Total <span id="total" class="text-dark">₹<%=subtotal-subTotaldiscount-cartData.couponDiscount %></span> </li>
+                                                <% }else{ %>
+                                <li>Total <span id="total" class="text-dark">₹<%=subtotal-subTotaldiscount %></span> </li>
+                                <% } %>
+                                <b class="text-success">You will save <span id="subtotalDiscounts" class="m-0 p-0">₹
+                                        <%=subTotaldiscount%></span> on this order</b>
+                                        <b class="text-success"><span id="couponDiscounts" class="m-0 p-0"></span></b>
+                                            <% if(cartData.couponID){ %>
+                                                <b class="text-success"><span id="couponDiscount" class="m-0 p-0">You will Extra save ₹<%= cartData.couponDiscount %></span></b>
+                                                <% } %>
+                            </ul>
+                            <a href="/checkout" class="primary-btn">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="cart__discount">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div>
-                    <div class="cart__total">
-                        <h6>Cart total</h6>
-                        <ul>
-                            <li>Subtotal <span id="subtotal">₹<%=subtotal%></span></li>
-                            <li>Discount <span id="subtotalDiscount" class="text-success">₹<%=subTotaldiscount%></span></li>
+            </div>
 
-                            <li>Total <span id="total" class="text-dark">₹<%=subtotal-subTotaldiscount %></span></li>
-                            <b  class="text-success">You will save <span id="subtotalDiscounts" class="m-0 p-0">₹<%=subTotaldiscount%></span> on this order</b>
-                        </ul>
-                        <a href="/checkout" class="primary-btn">Proceed to checkout</a>
+            <!-- gugdhfdfisouvifvjif -->
+            <div class="modal" tabindex="-1" id="saa">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <button id="out" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#outofstock">
+
+        </button>
+        <!-- The Modal -->
+        <div class="modal" id="outofstock">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body d-flex justify-content-between">
+                        <p><b> Out of stock this product!!!!!!!!</b></p>
+                        <button type="button" class="primary-btn" data-bs-dismiss="modal">OK</button>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- gugdhfdfisouvifvjif -->
-        <div class="modal" tabindex="-1" id="saa">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Modal title</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-    </section>
-    <button id="out" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#outofstock">
+        <!-- Modal footer -->
+        <script>
+            $(document).ready(function () {
+                const form =document.getElementById('form')
+                form.addEventListener('submit',(e)=>{
+                    e.preventDefault()
+                })
+                $('#out').hide()
+                $('#coupon_show').click(()=>{
+                    $('#coupon_area').toggle()
+                })
+            })
+            function decrement(ID) {
+                $.ajax({
+                    url: `/decrement?id=${ID}`,
+                    type: 'post',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
 
-    </button>
-     <!-- The Modal -->
-     <div class="modal" id="outofstock">
-        <div class="modal-dialog">
-          <div class="modal-content">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <!-- <h4 class="modal-title">Modal Heading</h4> -->
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-      
-            <!-- Modal body -->
-            <div class="modal-body d-flex justify-content-between">
-        <p><b>  Out of stock this product!!!!!!!!</b></p>
-        <button type="button" class="primary-btn" data-bs-dismiss="modal">OK</button>
-        
-            </div>
-            </div>
-            </div>
-            </div>
-      
-            <!-- Modal footer -->
-    <script>
-       $(document).ready(function(){
-        $('#out').hide()
-       })
-    function decrement(ID){
-        $.ajax({
-            url:`/decrement?id=${ID}`,
-            type:'post',
-            contentType:'application/json',
-             dataType:'json',
-             success:function(res){
-                console.log(res);
-               
-                // for(i=0;i<res.pro_length;i++){
-                if(res.ProductID== ID){
-                    $(`#${ID}value`).val(`${res.stock}`)
-                    $(`#${ID}price`).text(`₹${res.totalprice}`)
-                    $('#subtotal').text(`₹${res.subtotal}`)
-                    $('#subtotalDiscount').text(`₹${res.subTotaldiscount}`)
-                    $('#subtotalDiscounts').text(`₹${res.subTotaldiscount}`)
-                    let total=res.subtotal-res.subTotaldiscount
-                    $('#total').text(`₹${total}`)
-                    // break;
-                }
-            
-                   
-                
-               
-             }
-        })
-    }
+                    
+                        if (res.ProductID == ID) {
+                            $(`#${ID}value`).val(`${res.stock}`)
+                            $(`#${ID}price`).text(`₹${res.totalprice}`)
+                            $('#subtotal').text(`₹${res.subtotal}`)
+                            $('#subtotalDiscount').text(`₹${res.subTotaldiscount}`)
+                            $('#subtotalDiscounts').text(`₹${res.subTotaldiscount}`)
+                            let total
+                            if(res.CartData.couponID){
+                                total = res.subtotal - res.subTotaldiscount-res.CartData.couponDiscount
+                            }else{
+                                total = res.subtotal - res.subTotaldiscount
+                            }
+                             
+                            $('#total').text(`₹${total}`)
+                            $(`#couponDiscounts`).text('')
+                            $(`#couponDiscount`).text('')
+                            
+                            
+                        }
+                        let html
+                        let html2=[]
+                        res.coupon.forEach((element)=>{
+                            html2+=` <div style="height: 120px; " class="m-2 card shadow bg-white d-flex row">
+                                    <div class="w-25 h-100 d-flex justify-content-center align-items-center">
+                                        <img class="w-100" style="height: 50px ;width: 80px;"
+                                            src="/image/discount-coupon (2).png" alt="">
+                                    </div>
+                                    <div 
+                                        class="w-75 h-100 d-flex flex-column justify-content-center align-items-center">
+                                        <p class="p-0 m-0">Get extra ${element.discount}% off on Maximum amount ₹${element.MinimumDiscount } (price inclusive of
+                                            cashback) <button onclick="couponApply('${element._id}')" style="border: 0px sol
+                            white;border-radius: 3px; color: aliceblue;" class=" bg-success">click</button></p>
 
-    function increment(ID){
-        $.ajax({
-            url:`/increment?id=${ID}`,
-            type:'post',
-            contentType:'application/json',
-             dataType:'json',
-             success:function(res){
-                console.log(res);
-                if(res.ProductID== ID){
-                    $(`#${ID}value`).val(`${res.stock}`)
-                    $(`#${ID}price`).text(`₹${res.totalprice}`)
-                    $('#subtotal').text(`₹${res.subtotal}`)
-                    $('#subtotalDiscount').text(`₹${res.subTotaldiscount}`)
-                    $('#subtotalDiscounts').text(`₹${res.subTotaldiscount}`)
-                    let total=res.subtotal-res.subTotaldiscount
-                    $('#total').text(`₹${total}`)
-        
-                }
-                if(res.outOfStock==true){
+                                    </div>
+                                </div>`
+                        })
+                        
+                        $('#coupon_area').html('')
+                        html=` ${res.CartData.couponID?
+                            ` <p class="text-danger">Coupon already used</p>`:
+                            `         <div>
+                                ${html2}
+                            </div>`} `
+                            $('#coupon_area').html(html)
+                            console.log(html);
 
-                    $('#out').hide().click()
 
                     }
-             }
-        })
-    }
-    $(document).ready(function(){
-        var x=($('.input').val());
-        console.log(x);
-       if( $('.input').val()<0){
-        $('.de').hide()
-       }else{
-        $('.de').show()
-       }
-    })
+                })
+            }
 
-    function deletecart(ID){
-        $.ajax({
-            url:`/deletecart?id=${ID}`,
-            type:'post',
-            contentType:'application/json',
-             dataType:'json',
-             success:(res)=>{
-                if(res.success){
-                    location.href='/cart'
+            function increment(ID) {
+                $.ajax({
+                    url: `/increment?id=${ID}`,
+                    type: 'post',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        if (res.ProductID == ID) {
+                            $(`#${ID}value`).val(`${res.stock}`)
+                            $(`#${ID}price`).text(`₹${res.totalprice}`)
+                            $('#subtotal').text(`₹${res.subtotal}`)
+                            $('#subtotalDiscount').text(`₹${res.subTotaldiscount}`)
+                            $('#subtotalDiscounts').text(`₹${res.subTotaldiscount}`)
+                            let total = res.subtotal - res.subTotaldiscount
+                            $('#total').text(`₹${total}`)
+
+                        }
+                        if (res.outOfStock == true) {
+
+                            $('#out').hide().click()
+
+                        }
+                        let html
+                        let html2=[]
+                        res.coupon.forEach((element)=>{
+                            html2+=` <div style="height: 120px; " class="m-2 card shadow bg-white d-flex row">
+                                    <div class="w-25 h-100 d-flex justify-content-center align-items-center">
+                                        <img class="w-100" style="height: 50px ;width: 80px;"
+                                            src="/image/discount-coupon (2).png" alt="">
+                                    </div>
+                                    <div 
+                                        class="w-75 h-100 d-flex flex-column justify-content-center align-items-center">
+                                        <p class="p-0 m-0">Get extra ${element.discount}% off on Maximum amount ₹${element.MinimumDiscount } (price inclusive of
+                                            cashback) <button onclick="couponApply('${element._id}')" style="border: 0px sol
+                            white;border-radius: 3px; color: aliceblue;" class=" bg-success">click</button></p>
+
+                                    </div>
+                                </div>`
+                        })
+                        
+                        $('#coupon_area').html('')
+                        html=` ${res.CartData.couponID?
+                            ` <p class="text-danger">Coupon already used</p>`:
+                            `         <div>
+                                ${html2}
+                            </div>`} `
+                            $('#coupon_area').html(html)
+                            console.log(html);
+
+                    }
+                })
+            }
+            $(document).ready(function () {
+                var x = ($('.input').val());
+                console.log(x);
+                if ($('.input').val() < 0) {
+                    $('.de').hide()
+                } else {
+                    $('.de').show()
                 }
-             }
-        })
+            })
+
+            function deletecart(ID) {
+                $.ajax({
+                    url: `/deletecart?id=${ID}`,
+                    type: 'post',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: (res) => {
+                        if (res.success) {
+                            location.href = '/cart'
+                        }
+                    }
+                })
+            }
+
+            function couponApply(id){
+$.ajax({
+    url:'/couponApply',
+    type:'post',
+    dataType:'json',
+    contentType:'application/json',
+    data:JSON.stringify({id}),
+    success:(res)=>{
+        console.log(res);
+        if(res.success){
+            $(`#couponDiscounts`).text(`You will Extra save ₹ ${res.MinimumDiscount}`)
+            $('#coupon_show').click()
+            $('#total').text(res.total)
+
+                        let html
+                        let html2=[]
+                        res.coupon.forEach((element)=>{
+                            html2+=` <div style="height: 120px; " class="m-2 card shadow bg-white d-flex row">
+                                    <div class="w-25 h-100 d-flex justify-content-center align-items-center">
+                                        <img class="w-100" style="height: 50px ;width: 80px;"
+                                            src="/image/discount-coupon (2).png" alt="">
+                                    </div>
+                                    <div 
+                                        class="w-75 h-100 d-flex flex-column justify-content-center align-items-center">
+                                        <p class="p-0 m-0">Get extra ${element.discount}% off on Maximum amount ₹${element.MinimumDiscount } (price inclusive of
+                                            cashback) <button onclick="couponApply('${element._id}')" style="border: 0px sol
+                            white;border-radius: 3px; color: aliceblue;" class=" bg-success">click</button></p>
+
+                                    </div>
+                                </div>`
+                        })
+                        
+                        $('#coupon_area').html('')
+                        html=` ${res.CartData.couponID?
+                            ` <p class="text-danger">Coupon already used</p>`:
+                            `         <div>
+                                ${html2}
+                            </div>`} `
+                            $('#coupon_area').html(html)
+                            console.log(html);
+
+
+        }
     }
-    </script>
+})
+            }
+        </script>
 
 
-<%- include('../layout/footer') %>
-<%- include('../layout/end') %>
+        <%- include('../layout/footer') %>
+            <%- include('../layout/end') %>

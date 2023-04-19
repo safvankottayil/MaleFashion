@@ -1,0 +1,193 @@
+<%- include('../layout/start') %>
+<section class="row m-0 vw-100 colorr">
+    <%- include('../layout/adminNavbar') %>
+
+<div class="container col-12 tm-mt-big tm-mb-big ">
+    <div class="row  bg-dark my-3 radius mx-1 " style="color: aliceblue;">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto  d-flex align-items-center ">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto  ">
+          <div class="row">
+            <div class="col-12">
+              <h2 class=" pb-3 mt-5 tm-block-title d-inline-block text-light"><b> ADD BANNER </b></h2>
+            </div>
+          </div>
+          <div style="height: 555px;" class=" row tm-edit-product-row  d-flex justify-content-center ">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <!-- //////////form start/////////////////////////// -->
+              <% if(!banner){ %>
+              <form id="form" action="/admin/add-banner" method="post" enctype="multipart/form-data" class="tm-edit-product-form">
+                <% }else{ %>
+                  <form id="form" action="/admin/edit-banner?id=<%=banner._id %>" method="post" enctype="multipart/form-data" class="tm-edit-product-form">
+                  <% } %>
+                <div class="form-group mb-3">
+                 
+                  <label
+                    for="name"
+                    >heading 1
+                  </label>
+                  <% if(!banner){ %>
+                  <input
+                  
+                    id="title1" name="title1" type="text" value="" class="form-control validate"    />
+                  <% }else{ %>
+                    <input
+                  
+                    id="title1"
+                    name="title1"
+                    type="text"
+                    value="<%= banner.title1 %>"
+                    class="form-control validate"
+                  />
+                    <% } %>
+                  <small class=" text-danger error"></small>
+                </div>
+                <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >heading 2
+                    </label>
+                    <% if(!banner){ %>
+                    <input
+                    
+                      id="title2"
+                      name="title2"
+                      type="text"
+                      value=""
+                      class="form-control validate"
+                    />
+                    <% }else{ %>
+                      <input
+                    
+                      id="title2"
+                      name="title2"
+                      type="text"
+                      value="<%= banner.title2 %>"
+                      class="form-control validate"
+                    />
+                      <% } %>
+                    <small class=" text-danger error"></small>
+                  </div>
+                <div class="form-group mb-3">
+                  <label
+                    for="description"
+                    >Description</label
+                  >
+                  <% if(!banner){ %>
+                  <textarea  
+                  id="description" 
+                  name="description"                 
+                    class="form-control validate tm-small"
+                    rows="5"
+                  ></textarea>
+                  <% }else{ %>
+                    <textarea  
+                    id="description" 
+                    name="description"                 
+                      class="form-control validate tm-small"
+                      rows="5"
+                      value=""
+                 
+                    ><%=banner.description %></textarea>
+             
+                    <% } %>
+                  <small class=" text-danger error"></small>
+                </div>
+             
+              
+                    
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-edit mx-auto">
+                <% if(!banner){ %>
+                  <% }else{ %>
+                    <img style="height: 300px;" src="product/<%= banner.image %>" alt="Product image" class="img-fluid d-block mx-auto">
+                    <% } %>
+               
+              </div>
+              <div class="custom-file mt-3 mb-3">
+                <% if(!banner){ %>
+                
+                <input id="file" name="image"  class="form-control" id="fileInput" type="file" />
+                <% }else{ %>
+                  <input id="file" name="image" value="<%= banner.image%>"  class="form-control" id="fileInput" type="file" />
+                  <% } %>
+                <small class=" text-danger error"></small>
+               
+            
+              </div>
+             <% if(!banner){ %>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">ADD BANNER</button>
+                <% }else{ %>
+                  <button type="submit" class="btn btn-primary btn-block text-uppercase">EDIT BANNER</button>
+
+                  <% } %>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const form=document.getElementById('form')
+  const title1=document.getElementById('title1')
+  const title2=document.getElementById('title2')
+  const description=document.getElementById('description')
+  const file=document.getElementById('file')
+  const seterror=(element,message)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.error')
+
+      errorDisplay.innerText=message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const setSuccess=(element)=>{
+      const inputControll=element.parentElement;
+      const errorDisplay=inputControll.querySelector('.error')
+
+      errorDisplay.innerText=''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+  form.addEventListener('submit',e=>{
+      const bannerTitle1=title1.value.trim()
+      const bannerTitle2=title2.value.trim()
+      const bannerDiscription=description.value.trim()
+      const bannerfile=file.value.trim()
+      ////TITLE///
+      console.log('ahdbjchad');
+if(bannerTitle1==''){
+  seterror(title1,'This field requred')
+  e.preventDefault()
+}else {
+  setSuccess(title1)
+}
+//////SROCK/////
+if(bannerTitle2==''){
+  seterror(title2,'This field requred')
+  e.preventDefault()
+}else {
+  setSuccess(title2)
+}
+/////BRAND////
+
+/////DISCRIPTION/////
+if(bannerDiscription==''){
+  seterror(description,'This field requred')
+  e.preventDefault()
+}else {
+  setSuccess(description)
+}
+/////
+if(bannerfile==''){
+  seterror(file,'This field requred')
+  e.preventDefault()
+}else {
+  setSuccess(file)
+}
+
+  })
+</script>
+<%- include('../layout/end') %>

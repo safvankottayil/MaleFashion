@@ -6,16 +6,112 @@ const Order = require('../models/Ordermodel')
 const bcrypt = require('bcrypt')
 const { all } = require("../router/userRouter")
 let message
+let totalrevenue
 
 
 ////////////RENDER DASHBORD
 const renderDashbord = async (req, res) => {
     try {
+        const users=await User.find().count()
+        const user=await User.find()
+        const products=await Product.find().count()
+        const order=await Order.find()
+        let profit=0
+        let totalrevenue=0
+        let showorders=[]
+        let Graf=[]
+        let Data=[],i=0,k=0
+       order.forEach((value)=>{
+        value.order.forEach((element)=>{
+            Data[i]=element
+            i++
+        })
+       })
+       const data=Data.reverse()
+       if(data.length>5){
+       for(let n=0;n<5;n++){
+        showorders[k]=data[n]
+        k++
+       }
+       k=0
+    }else{
+        for(let n=0;n<data.length;n++){
+            showorders[k]=data[n]
+            k++
+           }
+           k=0
+    }
 
-        res.render('dashbord')
+       console.log(showorders);
+      const pending= Data.filter((value)=>{
+        return value.status=='pending'
+       }).length
+       const delivered=Data.filter((value)=>{
+        return value.status=='delivered'
+       }).length
+       const cancelled=Data.filter((value)=>{
+        return value.status=='cancelled'
+       }).length
+       const ontheway=Data.filter((value)=>{
+        return value.status=='on the way'
+       }).length
+       const returned=Data.filter((value)=>{
+        return value.status=='returned'
+       }).length
+      
+       let orderstatus=[cancelled,ontheway,pending,delivered,returned]
+       console.log(orderstatus);
+
+       if(delivered!=0){
+        let Delivered=[],j=0
+        const today=new Date()
+        const delivered=Data.filter((value)=>{
+            return value.status=='delivered'
+           })
+           delivered.forEach((value)=>{
+            let lastdate=new Date(value.arrive_date)
+            if(today>=lastdate){
+                Delivered[j]=value
+                j++
+                totalrevenue+=value.totalprice-value.totaldiscount
+                profit+=(value.totalprice-value.totaldiscount)*1/5
+            }
+           }) 
+           console.log(Delivered);
+        const date= Delivered.map((value)=>{
+
+            return value.month
+         })
+         console.log(date);
+         let months=[]
+
+         const month=[...new Set(date)]
+         month.forEach((value,i)=>{
+            let profit=0
+            let revenue=0
+          Delivered.forEach((element)=>{
+            if(value==element.month){
+                console.log(element.totalprice-element.totaldiscount);
+                console.log((element.totalprice-element.totaldiscount)*1/5);
+                revenue+=element.totalprice-element.totaldiscount
+                profit+=(element.totalprice-element.totaldiscount)*1/5
+                Graf[i]={x:value,profit:profit,revenue:revenue}
+            }
+            })
+         })
+           }
+           
+       
+
+
+        console.log(123);
+        console.log(showorders);
+        
+
+        res.render('dashbord',{users,products,profit,totalrevenue,user,showorders,Graf,orderstatus})
 
     } catch (err) {
-        console.log(err.message);
+        console.log(err);
     }
 }
 
@@ -303,6 +399,7 @@ const adminLogout = async (req, res) => {
         console.log(err);
     }
 }
+
 ////////////////////ORDERLIST RENDER///////////////
 const renderOrderlist = async (req, res) => {
     try {
@@ -332,7 +429,14 @@ const renderOrderlist = async (req, res) => {
     
 
         console.log(groupOrders);
-      await  res.render('order_list',{groupOrders})
+        groupOrders=groupOrders.reverse()
+        // let allorders
+        if(req.query.type){
+            groupOrders
+        }else{
+            await  res.render('order_list',{groupOrders})
+        }
+     
     } catch (err) {
         console.log(err);
     }
@@ -356,7 +460,8 @@ const renderOrderview=async(req,res)=>{
         const orderDetail=allorder.filter((value)=>{
             return value.order_hash==order_id
         })
-        console.log(orderDetail[0].address.name);
+        console.log(orderDetail);
+
         await res.render('orderview',{orderDetail})
     }catch(err){
         console.log(err);
@@ -385,8 +490,10 @@ const orderStatusEdit=async(req,res)=>{
             await Order.updateOne({'order.id':element.id},{$set:{'order.$.status':'on the way'}})
         })
     }else if(type=='delivered'){
+const days=5
+const day=new Date(Date.now()+(days*3600 * 1000 * 24))
         successOrderData.forEach(async(element)=>{
-            await Order.updateOne({'order.id':element.id},{$set:{'order.$.status':'delivered'}})
+            await Order.updateOne({'order.id':element.id},{$set:{'order.$.status':'delivered','order.$.arrive_date':day}})
         })
     }else if(type=='cancelled'){
         successOrderData.forEach(async(element)=>{

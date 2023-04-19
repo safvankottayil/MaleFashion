@@ -10,8 +10,9 @@ const upload=config.CategoryStrorge()
 const prodectUplod=config.productStorage()
 const adminAuth=require('../middlewere/adminAuth')
 const couponControllers=require('../controllers/coupenContollers')
+const bannerController=require('../controllers/bannercontroller')
+const salesController=require('../controllers/salesController')
 
-console.log('jdsgcdhkljhj');
 admin_router.get('/login',adminAuth.isLogout,adminconstroller.RederLogin)
 admin_router.post('/login',adminconstroller.AdminVerify)
 admin_router.get('/',adminAuth.isAdmin,adminconstroller.renderDashbord)
@@ -39,6 +40,22 @@ admin_router.get('/coupon',adminAuth.isAdmin,couponControllers.renderCoupenpage)
 admin_router.post('/add-coupon',adminAuth.isAdmin,couponControllers.addcoupon)
 admin_router.post('/edit-coupon',adminAuth.isAdmin,couponControllers.editcoupon)
 admin_router.get('/delete-coupon',adminAuth.isAdmin,couponControllers.deletecoupon)
+/////////// BANNER/////////////
+admin_router.get('/banner',bannerController.renderBanner)
+admin_router.get('/add-banner',bannerController.renderaddBanner)
+admin_router.post('/add-banner',prodectUplod.single('image'),bannerController.insertBanner)
+admin_router.get('/delete-banner',bannerController.bannerDelete)
+admin_router.get('/edit-banner',bannerController.renderaddBanner)
+admin_router.post('/edit-banner',prodectUplod.single('image'),bannerController.editbanner)
+admin_router.get('/add-semibanner',bannerController.renderaddsemibanner)
+admin_router.post('/add-semibanner',prodectUplod.array('image',3),bannerController.addSemibanner)
+admin_router.get('/delete-semibanner',bannerController.deletesemibanner)
+admin_router.get('/edit-semibanner',bannerController.renderaddsemibanner)
+admin_router.post('/edit-semibanner',prodectUplod.array('image',3),bannerController.editsemibanner)
+///////////////SALES/////////////
+admin_router.get('/sales',salesController.renderSalespage)
+admin_router.post('/sales',salesController.renderSalespage)
+admin_router.get('/excelsheet',salesController.convertExcelsheet)
 
 
 module.exports=admin_router

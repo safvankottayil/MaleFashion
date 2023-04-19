@@ -59,9 +59,13 @@ const orderShema=mongoose.Schema({
             type:String,
             require:true,
         },time:{
-            type:Number,
+            type:Date,
             require:true
             
+        },
+        month:{
+            type:Number,
+            require:true
         }
 
     }]

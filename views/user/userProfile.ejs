@@ -58,6 +58,13 @@
                                 <p class="pb-1 text-muted mb-1">
                                     <%=user.email%>
                                 </p>
+                                <p class="pb-1 text-muted mb-1">
+                                <small class=""><b> Wallet:</b><span  style="font-weight: 900; font-size: 18px;"><% if(user.wallet){ %>
+                                   ₹ <%= user.wallet %>
+                                <% }else{ %>
+                                    ₹ 0
+                                <% } %></span></small>
+                                </p>
                                 <% if(user.address[0]){ %>
                                     <p class="text-muted mb-4">
                                         <%=user.address[0].address %>

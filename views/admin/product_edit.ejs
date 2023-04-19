@@ -1,66 +1,16 @@
 <%- include('../layout/start') %>
-<section class="row vw-100">
+<section class="row m-0 vw-100" style="background-color: rgba(5, 5, 5, 0.938);" >
     <%- include('../layout/adminNavbar') %>
 
 
-<!-- <div class="container-fluid vw-100">
-    <div class="row vh-100 w-100 bg-dark justify-content-center align-items-center">
-        <div class="product-form"> -->
-            <!-- form start -->
-            <!-- <form id="form" action="/admin/products-edit?id=<%= ProductData._id %>" method="post" enctype="multipart/form-data">
-                <div class="row py-2">
-                    <div class="col-12 col-md-6">
-                    <input id="title" type="text" value="<%= ProductData.title %>" name="title" class=" mt-3 form-control " placeholder="TITLE" >
-                    <small class=" text-danger error"></small>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <input id="brand" type="text"value="<%= ProductData.brand %>" name="brand" class=" mt-3 form-control" placeholder="BRAND" >
-                    <small class="text-danger error"></small>
-                    </div>
-                </div>
-                <div class="row w-100 d-flex justify-content-between py-2">
-                    <div class="col-3 ">
-                    <input id="price" style="width: 95%;" value="<%= ProductData.price %>" type="" name="price" class="  form-control" placeholder="PRICE" >
-                    <small class="text-danger error"></small>
-                    </div>
-                    <div class="col-4" >
-                        <input id="stock"  style="width: 95%;" value="<%= ProductData.stock %>" type="" name="stock" class=" form-control" placeholder="STOCK" >
-                    <small class="text-danger error"></small>
-                    </div>
-                    <div  class="col-5" >
-                        <input id="discount" style="width: 95%;" type="" value="<%= ProductData.discount %>" name="discount" class=" form-control" placeholder="DISCOUNT" >
-                    <small class="text-danger error"></small>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <textarea  class="form-control mt-3" value="<%= ProductData.discription %>" name="discription" id="discription" cols="15" rows="10" placeholder="DISCRIPTION"></textarea>
-                    <small class=" text-danger error"></small>
-                </div>
-                <div class="row">
-                    <input id="file" type="file" name="image" class=" col-12 form-control" placeholder="" >
-                    <small class=" text-danger error"></small>
-                 </div>
-                 <div>
-                    <select id="category" name="category" class="form-select mt-3" aria-label="Default select example">
-                        <% for(let i=0;i<Data.length;i++){ %>
-                        <option value="<%= Data[i].category %>"><%= Data[i].category%></option>
-                       <% } %>
-                      </select>
-                    <small class=" text-danger error"></small>
-                 </div>
-                 <button class="btn btn-primary" type="submit">submit</button>
-            </form>
-        </div>
-    </div>
-</div> -->
-
-<div class="container col-10 tm-mt-big tm-mb-big">
-    <div class="row vh-100 bg-light ">
-      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto  d-flex align-items-center ">
+<div class=" col-12 col-md-10 tm-mt-big tm-mb-big">
+  <div class="vh-100 scroll radius">
+    <div  class="row h-100 bg-dark scroll my-3 radius text-light  ">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto   d-flex align-items-center ">
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto  ">
           <div class="row">
             <div class="col-12">
-              <h2 class=" pb-3 tm-block-title d-inline-block">Edit Product</h2>
+              <h2 class=" text-light pb-3 tm-block-title d-inline-block">Edit Product</h2>
             </div>
           </div>
           <div style="height: 555px;" class=" row tm-edit-product-row  d-flex justify-content-center ">
@@ -236,6 +186,7 @@
       </div>
     </div>
   </div>
+</div>
 </section>
 <script>
   const form=document.getElementById('form')

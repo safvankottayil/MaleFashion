@@ -82,6 +82,10 @@ const userData=mongoose.Schema({
         default:false
 
     }
+    ,wallet:{
+        type:Number,
+        require:true
+    }
 })
 
 module.exports=mongoose.model("user",userData)

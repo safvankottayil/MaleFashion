@@ -1,5 +1,5 @@
 <%- include('../layout/start') %>
-    <section class="row w-100 m-0">
+    <section class="row w-100 m-0 p-0 " style="background-color: rgba(5, 5, 5, 0.938);">
         <%- include('../layout/adminNavbar') %>
 
 
@@ -11,74 +11,75 @@
                             list-style: none;
                             padding-left: 10px;
                         }
-                    </style>
-                    <div class="col-12">
+                    </style> 
+                    <div class="col-12 m-0 p-0">
                         <div class="row w-100 m-0">
-                            <div class="col-12 col-md-2 py-2">
-                                <div class="mx-2  shadow ">
-                                    <ul class="list">
+                            <div class="col-12 col-md-2 py-2 m-0 p-0">
+                                <div class="mx-2 bg-dark radius shadow mt-2 ">
+                                    <ul class="list text-light">
                                         <li class="pt-3">
-                                            <h5><b>FILTER</b></h5>
+                                            <h5><b class="text-light">FILTER</b></h5>
                                         </li>
                                         <li class="py-2">
-                                            <h6><b>ORDER STATUS</b></h6>
+                                            <h6><b class="text-light">ORDER STATUS</b></h6>
                                         </li>
                                         <div class="slidenav">
                                             <li>
-                                                <input type="checkbox" name="" id="">
-                                                <label for="">ALL</label>
+                                                <input onclick="status('all')" type="radio" name="" id="">
+                                                <label  for="">ALL</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="" id="">
+                                                <input  onclick="status('pending')"  type="radio" name="" id="">
                                                 <label for="">PENDING</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="" id="">
+                                                <input  onclick="status('ontheway')"  type="radio" name="" id="">
                                                 <label for="">ON THE WAY</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="" id="">
+                                                <input  onclick="status('delivered')"  type="radio" name="" id="">
                                                 <label for="">DELIVERED</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="" id="">
+                                                <input  onclick="status('cancelled')"  type="radio" name="" id="">
                                                 <label for="">CANCELLED</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" name="" id="">
+                                                <input  onclick="status('returned')"  type="radio" name="" id="">
                                                 <label for="">RETURNED</label>
                                             </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-10 m-0">
+                            <div class="col-12 vh-100 scroll col-md-10 m-0 pt-2">
+                                <div class="h-100">
                                 <% groupOrders.forEach(element=> {%>
-                                    <section class=" my-2 shadow bg-white"
+                                    <section class=" my-2 shadow bg-dark text-light"
                                         style=" border-radius: 5px; border: 1px solid black;" data-bs-spy="scroll"
                                         data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
                                         data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2"
                                         tabindex="0">
                                         <% element.forEach( (value)=>{%>
-                                            <a style="color:black ;"
+                                            <a style="color:white ;"
                                                 href="/admin/orderviews?orderHash=<%=value.order_hash%>">
                                                 <div class="py-2 ps-3   w-100  d-flex">
                                                     <div class="row w-100  ">
-                                                        <div class="col-12 col-md-5 d-flex">
+                                                        <div class="col-12 col-md-5 d-flex ">
                                                             <div>
                                                                 <img class="pe-3" style="height:120px;"
                                                                     src="product/<%=value.product_id.image[0]%>" alt="">
                                                             </div>
                                                             <div>
-                                                                <h6>
+                                                                <h6 class="text-light">
                                                                     <%=value.product_id.title%> (Item<%=value.quantity%>
                                                                             )
                                                                 </h6>
-                                                                <p><b> size:</b>
+                                                                <p><b  class="text-light"> size:</b>
                                                                     <%=value.size%> <b>color:</b>
                                                                         <%=value.color%>
                                                                 </p>
                                                                 <h5><span
-                                                                        class="mx-2">₹<%=value.totalprice-value.totaldiscount%></span><br><small
+                                                                        class="mx-2 text-light">₹<%=value.totalprice-value.totaldiscount%></span><br><small
                                                                         class="mx-2 text-danger text-decoration-line-through">₹
                                                                         <%=value.totalprice%>
                                                                     </small><span class="text-success mx-2">18%
@@ -100,14 +101,15 @@
                                                                     <small style="font-size: medium;"
                                                                         class="text-nowrap text-danger">CANCELLED DATE
                                                                         <br>
-                                                                        <%=value.arrive_date%>
+                                                                        <span class="text-wrap">  <%=value.arrive_date%></span>
                                                                     </small>
                                                                     <%}else{%>
                                                                         <small style="font-size: medium;"
                                                                             class="text-nowrap">DELIVERY DATE
                                                                             <br>
-                                                                            <%= value.arrive_date%>
+                                                                           <span class="text-wrap"> <%= value.arrive_date%></span>
                                                                                 <% } %>
+                                                                        </small>
                                                             </div>
                                                             <div class="d-flex justify-content-between ">
                                                                 <% if(value.status=='pending' ){ %>
@@ -141,10 +143,14 @@
                                     </a>
                                     <% }); %>
                             </div>
-
+                          </div>
                         </div>
                     </div>
-                    <!--  -->
                 </section>
             </div>
     </section>
+    <script>
+        function status(type){
+            location.href='/admin/orderlists?type='+type
+        }
+    </script>

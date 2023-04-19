@@ -1,0 +1,39 @@
+const mongoose=require('mongoose')
+const bannerschema=mongoose.Schema({
+    title1:{
+        type:String,
+        require:true
+    },
+    title2:{
+        type:String,
+        require:true
+    },
+    description:{
+        type:String,
+        require:true
+    },
+    image:{
+       type:String,
+       require:true
+    },
+    semibanner:[{
+        title1:{
+            type:String,
+            require:true
+        },
+        title2:{
+            type:String,
+            require:true
+        
+        },
+        title3:{
+            type:String,
+            require:true
+        },
+        image:{
+            type:Array,
+            require:true
+        }
+    }]
+})
+module.exports=mongoose.model('banner',bannerschema)

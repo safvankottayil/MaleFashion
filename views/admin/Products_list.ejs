@@ -1,19 +1,19 @@
 <%- include('../layout/start') %>
-  <section class="row w-100">
+  <section class="row w-100  m-0 "  style="background-color: rgba(5, 5, 5, 0.938);">
     <%- include('../layout/adminNavbar') %>
 
-
-      <div class="container-fluid vw-100 col-10">
-        <div class="container col-10 tm-mt-big tm-mb-big">
-          <div class="row vh-100 bg-light ">
-            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto  d-flex align-items-center ">
+    <section class="col-12 vh-100 col-md-10 scroll">
+      <!-- <div class=""> -->
+        <div class="container col-12 radius tm-mt-big tm-mb-big py-3  bg-dark my-3  ">
+          <div class="row  ">
+            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto  d-flex align-items-center radius bg-dark  " style=" color: aliceblue;">
               <div class="tm-bg-primary-dark tm-block tm-block-h-auto  ">
                 <div class="row">
-                  <div class="col-12">
-                    <h2 class=" pb-3 tm-block-title d-inline-block">add Product</h2>
+                  <div class="col-12 my-5">
+                    <h2 class=" pb-3 tm-block-title d-inline-block text-light"><b>ADD PRODUCT</b></h2>
                   </div>
                 </div>
-                <div style="height: 555px;" class=" row tm-edit-product-row  d-flex justify-content-center ">
+                <div  class=" row tm-edit-product-row  d-flex justify-content-center ">
                   <div class="col-xl-6 col-lg-6 col-md-12">
                     <!-- //////////form start/////////////////////////// -->
                     <form id="form" action="/admin/product-list" method="post" enctype="multipart/form-data"
@@ -42,7 +42,7 @@
                         </select>
 
                       </div>
-                      <div class="row">
+                      <div class="row " >
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label for="expire_date">brand
                           </label>
@@ -72,7 +72,7 @@
 
 
                   </div>
-                  <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                  <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4 " style=" color: aliceblue;">
                     <div class="tm-product-img-edit mx-auto">
                       <!-- <img src="product" alt="Product image" class="img-fluid d-block mx-auto"> -->
                       <!-- <i
@@ -124,8 +124,8 @@
                     </div>
 
                   </div>
-                  <div class=" p-0 m-0 " style="height: 30px;">
-                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+                  <div class=" p-0 m-0 px-5 mb-5 " style="height: 30px;">
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase">ADD PROCUCT</button>
                   </div>
                   </form>
                 </div>
@@ -133,6 +133,7 @@
             </div>
           </div>
         </div>
+        <!-- </div> -->
   </section>
   </section>
   <script>

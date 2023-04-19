@@ -215,7 +215,7 @@
             </div>
         </section>
         <!-- Shop Details Section End -->
-        <section class="related spad">
+        <!-- <section class="related spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -268,9 +268,88 @@
                     <%   }); %>
                 </div>
             </div>
+        </section> -->
+        <section class="p-3">
+            <% if(x){ %>
+            <div class="row d-flex justify-content-center">
+                <div style="background-color: #f0eeee;" class="col-12 col-md-10 ">
+                    <% if(!ThisuserReview){ %>
+                    <div id="review" class="m-2 px-3 pt-3  bg-white shadow">
+                        <% for(let i=0;i<5;i++){ %>
+                        <span id="<%=i%>star" onclick="starClick('<%=i%>')" class="fa fa-star"></span>
+                        <% } %>
+                        
+                        <p id="Rerror" class="text-danger"></p>
+                    
+                        <label for="">Description</label>
+                        <textarea class="w-100" name="" id="description" cols="30" rows="4"></textarea>
+                        <small id="Derror" class="text-danger"></small><br>
+                        <button class="btn btn-success my-2" onclick="submit('<%=pro_Data._id%>')">Submit</button>
+                    </div>
+                    <% } %>
+                    <% if(review){ %>
+                    <% review.reviews.forEach((element,i) => {%>
+                        
+                  
+                    <div   class="m-2  bg-white row d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                            <img class="m-2" style="height: 20px;" src="/image/user (1).png" alt=""><span><%=element.user.name %></span>
+                           </div>
+                           <div class="d-flex align-items-center">
+                            <% for(let i=0;i<element.rating;i++){ %>
+                                <span  class="fa fa-star checked"></span>
+                                <% } %>
+                                <% for(let i=0;i<5-element.rating;i++){ %>
+                                    <span  class="fa fa-star"></span>
+                                    <% } %>
+                           </div>
+
+                        </div>
+
+                        <div>
+                            <p class="p-0 m-0"><%=element.description %></p>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <p class="p-0 m-0">Was this review helpful ?</p>
+                            <% if(liked[i]){ %>
+                            <span class="me-1">
+                                <span id="<%=element.user._id%>liketrue">
+                                <% if(liked[i].like){ %>
+                                   
+                                    <img src="/img/icon/likeb.png" alt="">
+                                    <% }else{ %>
+                                <img  onclick="like('<%=element.user._id%>','<%=review.product%>')" src="/img/icon/like.png" alt="">
+                                    <% } %>
+                                    </span>
+                                <b id="<%=element.user._id%>like"><%= element.like %></b>
+                            </span>
+                            <span  class="me-1">
+                                <span id="<%=element.user._id%>disliketrue">
+                                <% if(liked[i].dislike){ %>
+                                    
+                                    <img src="/img/icon/dislikeb.png" alt="">
+                                <% }else{ %>
+                                <img onclick="dislike('<%=element.user._id%>','<%=review.product%>')" src="/img/icon/dislike.png" alt="">
+                            </span>
+                                <% } %>
+                              
+                                <b id="<%=element.user._id%>d"><%= element.dislike %></b>
+                            </span>
+                            <% } %>
+                        </div>
+
+                    </div>
+                    <%  }); %>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
         </section>
         <% if(productDetialError){ %>
             <script>
+
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -304,10 +383,124 @@
                     $(`#${i}click`).click(function () {
                         $(`.image`).hide()
                         $(`#${i}image`).show()
+
+
+
+
+
+
+
                     })
                 }
             })
+            let rating
+            function starClick(n){
+                rating=Number(n)+1
+                for(let j=0;j<5;j++){
+                    $(`#${j}star`).removeClass('checked')
+                }
+                for(let i=0;i<=n;i++){
+                    $(`#${i}star`).addClass('checked')
+                }
+            }
 
+            function submit(ID){
+                const check=validate()
+                if(check){
+                    console.log(234567);
+                    const description=$('#description').val()
+                    $.ajax({
+                        url:'/addreview',
+                        type:'post',
+                        dataType:'json',
+                        contentType:'application/json',
+                        data:JSON.stringify({rating,description,ID}),
+                        success:(res)=>{
+                        if(res.success){
+                            $('#review').hide()
+                        }
+                        }
+
+                    })
+                }
+                
+                function validate(){
+                    let check=true
+                    if($('#description').val()==''){
+                        $('#Derror').text('This field required')
+                        check=false
+                    }else{
+                        $('#Derror').text('')
+                    }
+                    if(rating==null){
+                        $("#Rerror").text('This feild required')
+                        check=false
+                    }else{
+                        $("#Rerror").text('')
+                    }
+                    return check
+                }
+            }
+
+function like(id,pro){
+    console.log(23456);
+    $.ajax({
+        url:'/reviewlike?user_id='+id+'&productID='+pro,
+        type:'get',
+        dataType:'json',
+        contentType:'application/json',
+        success:(res)=>{
+            console.log(res);
+            if(res.like||res.like==0){
+                $(`#${id}like`).text(res.like)
+            }
+            if(res.dislike||res.dislike==0){
+                $(`#${id}d`).text(res.dislike)
+            }
+            if(res.liketrue){
+                console.log(112);
+                $(`#${id}liketrue`).html(` <img src="/img/icon/likeb.png" alt="">`)
+            }
+            if(res.disliketrue==false){
+                console.log(12);
+                $(`#${id}disliketrue`).html(`<img onclick="dislike('${id}','${pro}')" src="/img/icon/dislike.png" alt="">`)
+            }
+
+        }
+    })
+    }
+function dislike(id,pro){
+    $.ajax({
+        url:'/reviewdislike?user_id='+id+'&productID='+pro,
+        type:'get',
+        dataType:'json',
+        contentType:'application/json',
+        success:(res)=>{
+            console.log(res);
+            if(res.like||res.like==0){
+                $(`#${id}like`).text(res.like)
+            }
+            if(res.dislike||res.dislike==0){
+                // console.log($(`#${id}dislike`).text());
+                $(`#${id}d`).text(res.dislike)
+            }
+            if(res.disliketrue){
+                $(`#${id}disliketrue`).html(``)
+                $(`#${id}disliketrue`).html(` <img src="/img/icon/dislikeb.png" alt="">`)
+                // $(`#${id}disliketrue`).html(` <img onclick="dislike('${id}','${pro}')" src="/img/icon/dislike.png" alt="">`)
+            }
+            if(res.liketrue==false){
+                $(`#${id}liketrue`).html(``)
+                $(`#${id}liketrue`).html(` <img onclick="like('${id}','${pro}')" src="/img/icon/like.png" alt="">`)
+            }
+        }
+
+    })
+}
+
+
+
+            
            
         </script>
         <%- include('../layout/footer') %>

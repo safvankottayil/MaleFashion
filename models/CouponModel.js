@@ -13,7 +13,7 @@ const couponshema=mongoose.Schema({
         type:Number,
         require:true
     },
-    Minimumprice:{
+    MinimumDiscount:{
         type:Number,
         required:true,
     },
@@ -25,7 +25,12 @@ const couponshema=mongoose.Schema({
         type:Boolean,
         require:true,
         default:false
-    }
+    },users:[{
+        user:{
+           type: mongoose.Schema.Types.ObjectId,
+             ref:'user'
+        }
+    }]
 })
 
 module.exports=mongoose.model('coupon',couponshema)

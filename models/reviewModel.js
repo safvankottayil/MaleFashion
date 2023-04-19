@@ -1,0 +1,59 @@
+const mongoose=require('mongoose')
+
+const reviewScheme=mongoose.Schema({
+    product:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'product'
+    },
+    rating:{
+        type:Number,
+        require:true
+    },
+    reviews:[
+        {   
+            user:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'user'
+            },
+            like:{
+                type:Number,
+                require:true,
+                default:0
+            },
+            dislike:{
+                type:Number,
+                require:true,
+                default:0
+            },
+            description:{
+                type:String,
+                require:true
+            },
+            rating:{
+                type:Number,
+                require:true,
+            },
+       
+        }
+    ],
+    likes:[{
+        reviewOwner:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'user'
+        },
+        user:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'user'
+        },
+        like:{
+            type:Boolean,
+            require:true
+        },
+        dislike:{
+            type:Boolean,
+            require:true
+        }
+    }]  
+})
+
+module.exports=mongoose.model('review',reviewScheme)

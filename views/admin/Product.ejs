@@ -1,11 +1,15 @@
 <%- include('../layout/start') %>
-<section class="row w-100">
+<section class="row w-100 m-0 p-0"  style="background-color: rgba(5, 5, 5, 0.938);">
   <%- include('../layout/adminNavbar') %>
 
 
-<div class="container-fluid col-10">
-    <section class="data-bs-spy="scroll>
-        <table class="table">
+<div class="col-12 col-md-10 m-0 p-0 ">
+    <section class=" p-2  px-0 radius vh-100 scroll py-3" >
+      <div class="bg-dark p-2 radius w-100 d-flex justify-content-center">
+        <a href="/admin/addproducts"><button class="btn btn-primary mb-2">ADD PRODUCTS</button></a>
+        </div>
+        <div class="bg-dark p-2 radius" >
+        <table class=" table scroll text-light table-dark table-striped">
           <thead>
              
             <tr>
@@ -46,9 +50,7 @@
           
           </tbody>
         </table>
-        <div class="w-100 d-flex justify-content-center">
-        <a href="/admin/addproducts"><button class="btn btn-primary">ADD PRODUCTS</button></a>
-        </div>
+      </div>
       </section>
 </div>
 </section>

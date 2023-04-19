@@ -5,15 +5,23 @@ const Category = require('../models/categoryModel')
 const Product = require('../models/prodectModel')
 const Cart = require('../models/CartModel')
 const Order=require('../models/Ordermodel')
+const Banner=require('../models/bannerModal')
+const Coupon=require('../models/CouponModel')
+const Review=require('../models/reviewModel')
 const { default: mongoose } = require("mongoose")
 const { populate } = require("../models/usermodel")
 const { ObjectId } = mongoose.Types
 accountsid = process.env.ACCOUNT_SID
 authtoken = process.env.AUTH_TOKEN
 servies_id = process.env.VERIFY_SID
+const Razorpay=require('razorpay')
+const  instance = new Razorpay({
+    key_id: process.env.RAZERPAY_KEY,
+    key_secret:process.env.RAZERPAY_SECRET_KEY,
+  });
 let deleteAlert = false
 const Client = require('twilio')(accountsid, authtoken)
-console.log(accountsid, authtoken);
+
 
 let message
 let productDetialError
@@ -32,9 +40,8 @@ const sendEmailverify = (email, name, user_id) => {
             port: 465,
             secure: true,
             auth: {
-                type: 'PLAIN',
-                user: 'p7693088@gmail.com',
-                pass: "luvujcxastndnxau"
+                user: 'malefashionfation@gmail.com',
+                pass: "rrmxdmdwletsxrzs"
             }
         });
         const mailOption = {
@@ -59,8 +66,8 @@ const sendEmailverify = (email, name, user_id) => {
 
 const renderHome = async (req, res) => {
     try {
-        console.log('hallo');
-        res.render('home', { x: req.session.user_id })
+        const banner=await Banner.find()
+        res.render('home', { x: req.session.user_id,banner})
     } catch (err) {
         console.log(err);
     }
@@ -252,6 +259,8 @@ const renderShop = async (req, res) => {
 /////////////////////////PRODUCT DEATEIL RENDER/////////////
 const renderProductDeatil = async (req, res) => {
     try {
+        let ThisuserReview
+        let liked=[]
         const user_id=req.session.user_id
         console.log(req.query);
         const productData = await Product.findOne({ _id: req.query.id, status: true }).populate('category')
@@ -270,11 +279,53 @@ const renderProductDeatil = async (req, res) => {
              ThisproductUsedcart=false
         }
     }
+    const review=await Review.findOne({product:req.query.id}).populate('reviews.user')
+if(review){
+    const user_id=req.session.user_id
+    const userReview=review.reviews.filter((value)=>{
+        return value.user._id==user_id
+    })
+    ThisuserReview=userReview[0]
+    const reviewID=review.reviews.map((value)=>{
+        return value.user._id
+    })
+    reviewID.forEach((value,i)=>{
+        let count=0
+        if(review.likes[0]){
+        review.likes.forEach((element)=>{
+          if(value.equals(element.reviewOwner)&&element.user==user_id){
+            if(element.like){
+                count=1
+                liked[i]={like:true,dislike:false}
+            }else {
+                count=1
+                liked[i]={like:false,dislike:true}
+            }
+          }else if(count==0){
+            liked[i]={like:false,dislike:false}
+          }
+        })
+                
+        }else{
+            liked[i]={like:false,dislike:false}
+        }
+    })
+}
 
 
         const relatedData = await Product.find({ category: productData.category, status: true }).limit(4)
-        // console.log(relatedData);
-        res.render('product_deatil', { pro_Data: productData, relatedData, persentage, discountPrice, x: req.session.user_id, productDetialError,ThisproductUsedcart })
+        res.render('product_deatil', {
+             pro_Data: productData,
+              relatedData,
+               persentage,
+                discountPrice,
+                 x: req.session.user_id,
+                  productDetialError,
+                  ThisproductUsedcart,
+                  ThisuserReview,
+                  review,
+                liked
+                 })
         productDetialError = null
     } catch (err) {
         console.log(err);
@@ -345,8 +396,20 @@ const addAddress = async (req, res) => {
         console.log();
         if(req.query.checkout){
             if(req.body.payment=='cash'){
-                console.log('dhubh');
                 res.redirect('/orderinsert?index='+index)
+            }
+            else if(req.body.payment=='wallet'){
+                res.redirect('/orderinsert?index='+index+'&type=wallet')
+            }
+            else if(req.body.payment=='paypal'){
+                const options = {
+                    amount: 50000,  // amount in the smallest currency unit
+                    currency: "INR",
+                    receipt: "order_rcptid_11"
+                  };
+                 const order=await instance.orders.create(options)
+                 req.session.order=order
+                 res.redirect('/checkout?index='+index)
             }
         }else{
         res.redirect('/add-address')
@@ -400,16 +463,20 @@ const editaddress = async (req, res) => {
            if(payment=='cash'){
            res.redirect('/orderinsert?index='+index)
            }else if(payment=='paypal'){
-            res.send('opld')
-           }else{
-            res.send('error')
+            const options = {
+                amount: 50000,  // amount in the smallest currency unit
+                currency: "INR",
+                receipt: "order_rcptid_11"
+              };
+             const order=await instance.orders.create(options)
+             req.session.order=order
+             res.redirect('/checkout?index='+index)
+           }else if(payment=='wallet'){
+            res.redirect('/orderinsert?index='+index+'&type=wallet')
            }
         } else{
             res.redirect('/add-address')
         }
-       
-
-
     } catch (err) {
         console.log(err);
     }
@@ -433,19 +500,11 @@ const CartRender = async (req, res) => {
         const user_id = req.session.user_id
         const cartData = await Cart.findOne({ user: user_id }).populate('products.product')
         if(cartData){
-        const subtotal  = cartData.products.map((value) => {
-            return value.totalprice
-        }).reduce((total, value) => {
-            return total = total + value
-        }, 0)
+        const subtotal  = cartData.grandtotal
+        const subTotaldiscount=cartData.grandDiscount
+        const coupon=await Coupon.find({Maximumprice:{$lte:subtotal-subTotaldiscount},is_expire:true,'users.user':{$ne:user_id}})
 
-        const subTotaldiscount=cartData.products.map((value)=>{
-            return value.totaldiscount
-        }).reduce((total,value)=>{
-            return total=total+value
-        },0)
-
-        res.render('cart', { x: req.session.user_id, cartData, subtotal,subTotaldiscount })
+        res.render('cart', { x: req.session.user_id, cartData, subtotal,subTotaldiscount,coupon })
     }else{
         res.send('hfdhgads')
     }
@@ -474,6 +533,7 @@ const addCart = async (req, res) => {
             if (user_alredy_Usedcart) {
                 await Cart.updateOne({ user: user_id }, {
                     $push: {
+                       
                         products: {
                             product: product[0]._id,
                             totalprice: price,
@@ -482,14 +542,18 @@ const addCart = async (req, res) => {
                             totaldiscount: discount
                         }
 
-                    }
+                    },$set:{ grandtotal:Number(user_alredy_Usedcart.grandtotal+price),
+                        grandDiscount:Number(user_alredy_Usedcart.grandDiscount+discount)}
                 })
                 res.redirect('/cart')
             } else {
+                console.log(discount);
                 const cart = await Cart({
+                    grandtotal:Number(price),
+                    grandDiscount:Number(discount),
                     user: user_id,
                     'products.0.product': product[0]._id,
-                    'products.0.totalprice': price - discount,
+                    'products.0.totalprice': price,
                     'products.0.size': size,
                     'products.0.color': color,
                     'products.0.totaldiscount': discount
@@ -551,7 +615,15 @@ const decrement = async (req, res) => {
             }).reduce((total,value)=>{
                 return total=total+value
             },0)
-            res.json({ stock, totalprice, ProductID, subtotal,subTotaldiscount })
+            await Cart.updateOne({user:user_id},{$set:{grandtotal:subtotal,grandDiscount:subTotaldiscount}})
+            const coupon=await Coupon.find({Maximumprice:{$lte:subtotal-subTotaldiscount},is_expire:true,'users.user':{$ne:user_id}})
+              if(CartData.couponID){
+                await Coupon.updateOne({_id:CartData.couponID,'users.user':user_id},{$pull:{users:{user:user_id}}})
+                await Cart.updateOne({user:user_id},{$set:{couponID:null,couponDiscount:0}})
+              
+              }
+              CartData = await Cart.findOne({ user: user_id, 'products.product': ProductID })
+            res.json({ stock, totalprice, ProductID, subtotal,subTotaldiscount,CartData,coupon })
         }
     } catch (err) {
         console.log(err);
@@ -603,7 +675,9 @@ const increment = async (req, res) => {
             }).reduce((total,value)=>{
                 return total=total+value
             },0)
-            res.json({ stock, totalprice, ProductID, subtotal,subTotaldiscount })
+            const coupon=await Coupon.find({Maximumprice:{$lte:subtotal-subTotaldiscount},is_expire:true,'users.user':{$ne:user_id}})
+            await Cart.updateOne({user:user_id},{$set:{grandtotal:subtotal,grandDiscount:subTotaldiscount}})
+            res.json({ stock, totalprice, ProductID, subtotal,subTotaldiscount,coupon,CartData })
         }
     } catch (err) {
         console.log(err);
@@ -640,8 +714,8 @@ const profileEditOtpsend=async(req,res)=>{
             port:465,
             secure:true,
             auth:{
-                user: 'p7693088@gmail.com',
-                pass: "luvujcxastndnxau"
+                user: 'malefashionfation@gmail.com',
+                pass: "rrmxdmdwletsxrzs"
             }
         })
         let OTP=otpgenerater()
@@ -666,8 +740,6 @@ const profileEditOtpsend=async(req,res)=>{
     }catch(err){
         console.log(err);
     }
-   
-   
 }
 
 let otpS
@@ -727,7 +799,11 @@ const rendercheckout=async(req,res)=>{
         },0)
         const user=await User.findOne({_id:user_id})
         const address=user.address[index]
-        res.render('checkout',{x:req.session.user_id,CartData,subtotal,subTotaldiscount,address,index})
+        const order=await req.session.order
+        req.session.order=null
+        console.log(order);
+
+        res.render('checkout',{x:req.session.user_id,CartData,subtotal,subTotaldiscount,address,index,order,user})
     }catch(err){
         console.log(err);
     }

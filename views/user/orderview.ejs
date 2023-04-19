@@ -64,7 +64,10 @@
                     <% if(element.status=='cancelled'){ %>
                     <small class="text-nowrap text-danger">CANCELLED DATE
                         <br><%= element.arrive_date%></small>
-                        <% }else{ %>
+                        <% }else if(element.status=='returned'){%>
+                            <small class="text-nowrap ">RETURNED DATE
+                                <br><%= element.arrive_date%></small>
+                            <%}else{ %>
                             <small class="text-nowrap">DELIVERY DATE
                                 <br><%= element.arrive_date%>
                             <% } %>
@@ -91,8 +94,13 @@
         <%}); %>
         <div class="col-12  my-3 p-0">
             <div  class="bg-white h-100 px-2 py-3  pricebox ">
-                <% if(Data[0].status=='cancelled'){ %>
-                <% }else{ %>
+                <% if(Data[0].status=='delivered'){ %>
+<% if(!todaydate){ %>
+                    <h5  ><a href="/orderCancel?orderhashID=<%= Data[0].order_hash%>&orderview=return" class="text-success">RETURn ORDER</a></h5>
+<% } %>
+                <% }else if(Data[0].status=='delivered'||Data[0].status=='returned'){%>
+
+                    <% }else{ %>
                     <h5  ><a href="/orderCancel?orderhashID=<%= Data[0].order_hash%>&orderview=true" class="text-danger">CANCEL ORDER</a></h5>
 
                     <% } %>
