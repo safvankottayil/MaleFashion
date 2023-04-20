@@ -1,6 +1,6 @@
 const express=require('express')
 const logger=require('morgan')
-const dotenv=require('dotenv').config({path:'./.env'})
+require('dotenv').config()
 const path=require('path')
 const nocache=require('nocache')
 const session=require('express-session')
