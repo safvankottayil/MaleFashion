@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const multer=require('multer')
-
+console.log(process.env.MONGODB_URL);
 ///mongoose conncetion
 function mongooseConnection() {
     mongoose.set('strictQuery', false)
-    mongoose.connect('mongodb://127.0.0.1:27017/Ecommerce')
+    mongoose.connect(process.env.MONGODB_URL)
 }
 
 ////CATEGORY STORAGE///
