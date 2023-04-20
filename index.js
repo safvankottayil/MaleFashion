@@ -12,14 +12,14 @@ consfig.mongooseConnection()
 
 const userRouter=require('./router/userRouter')
 const adminRouter=require('./router/adminRouter')
-
+console.log(process.env.SECRET_KEY);
 const app=express()
 app.set('view engine','ejs')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(logger('dev'))
 app.use(nocache())
-app.use(session({secret:process.env.SECRET_KEY,resave:true,saveUninitialized:true}))
+app.use(session({secret:process.env.SECRET_KEY,cookie:{maxAge:1000*60*60*24}}))
 
 app.use('/admin',adminRouter)
 app.use('/',userRouter)
