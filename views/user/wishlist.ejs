@@ -1,0 +1,65 @@
+<%- include('../layout/start') %>
+<%- include('../layout/navbar',{x}) %>
+<style>
+    .pricebox{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @media (max-width:500px) {
+        .pricebox{
+        display: flex;
+        flex-direction: column;
+    }
+        
+    }
+</style>
+<section class="p-1" style="background-color: rgb(214, 216, 216);">
+<section class="container-xl  ">
+    <div class="m-0 row d-flex justify-content-center w-100">
+    <div class="col-12 p-0">
+        <% if(wishlist[0]){ %>
+        <% wishlist.forEach(element => {%>
+            
+   
+        <div class="my-3 shadow bg-white py-2 ps-3, width:100%  d-flex row "  style=" border-radius: 5px;">
+           <div class="p-0 m-0 col-3 ">
+            <img class="mx-2" height="200px" src="product/<%= element.product.image[0] %>" alt="">
+           </div>
+           <div style="height: 100% !important;" class="h-100 col-8">
+            <div class="d-flex flex-column">
+            <b class="mt-2"><p><%= element.product.title %></p></b>
+            <h5><span class="mx-2">₹<%=element.product.price%></span><small
+                class="mx-2 text-danger text-decoration-line-through"></small><span class="text-success mx-2">
+                <%=(Math.round((element.product.discount*100) /element.product.price))%>% off
+            </span></h5>
+        </div>
+     
+           </div>
+           <div class="col-1 m-0 p-0">
+            <a href="/wishlistdelete?id=<%=element._id  %>"><p class="mt-2 btn-close"></p></a>
+        </div>
+       
+           <div><p></p></div>
+    </div>
+  <% }); %>
+  <% }else{%>
+    <div class="my-3 shadow bg-white py-3 ps-3, width:100%  "  style=" border-radius: 5px;">
+       
+        <div class=" d-flex justify-content-center align-items-center"> <b class="text-danger">NO PRODUCTS</b> </div>
+     </div>
+
+ <% } %>
+</div>
+
+    
+
+       
+     
+  
+   
+</div>
+</section>
+</section>
+<%- include('../layout/footer') %>
+<%- include('../layout/end') %>

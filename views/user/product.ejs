@@ -190,7 +190,7 @@
 
                     <!-- //////////////////////////////////// -->
                     <div class="col-lg-9">
-                        <div class="shop__product__option">
+                        <!-- <div class="shop__product__option">
                             <div class="row">
 
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -209,7 +209,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div id="Filter" class="row">
                             <%pro_Data.forEach((element,i)=> { %>
 
@@ -219,7 +219,7 @@
                                             <div class="product__item__pic set-bg">
                                                 <img class="h-100 w-100" src="product/<%= element.image[0] %>" alt="">
                                                 <ul class="product__hover">
-                                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                                    <li><a href="/wishlist?id=<%=element._id %>"><img src="img/icon/heart.png" alt=""></a></li>
                                                 </ul>
                                             </div>
                                             <div class="product__item__text">
@@ -238,9 +238,8 @@
                                         <i class="fa fa-star-o">x</i>
                                         <i class="fa fa-star-o">x</i>
                                     </div> -->
-                                                <h5><span class="mx-2">₹<%=element.price-element.discount%></span><small
-                                                        class="mx-2 text-danger text-decoration-line-through">₹
-                                                        <%=element.price%></small><span class="text-success mx-2">
+                                                <h5><span class="mx-2">₹<%=element.price%></span><small
+                                                        class="mx-2 text-danger text-decoration-line-through"></small><span class="text-success mx-2">
                                                         <%=(Math.round((element.discount*100) /element.price))%>% off
                                                     </span></h5>
 

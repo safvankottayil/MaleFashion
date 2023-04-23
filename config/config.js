@@ -5,6 +5,7 @@ console.log(process.env.MONGODB_URL);
 function mongooseConnection() {
     mongoose.set('strictQuery', false)
     mongoose.connect(process.env.MONGODB_URL)
+    // mongoose.connect()
 }
 
 ////CATEGORY STORAGE///

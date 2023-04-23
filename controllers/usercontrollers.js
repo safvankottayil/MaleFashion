@@ -126,8 +126,7 @@ const verifyLogin = async (req, res) => {
 const veryfyRejister = async (req, res) => {
 
     const { name, email, mobile, password } = req.body.formdata
-    const userdata = await User.findOne({ email: email })
-
+    const userdata = await User.findOne({ email: email,is_verfyed:true })
     console.log(userdata);
     if (userdata) {
         res.send({ response: 'This email alredy used' })

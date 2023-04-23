@@ -9,6 +9,7 @@ const { updateOne, findOne } = require('../models/usermodel')
 ////////////////WHISH LIST RENDER//////////////////
 const renderwishlist = async (req, res) => {
     try {
+        console.log(1);
         const { id } = req.query
         const user_id = req.session.user_id
 
@@ -23,18 +24,22 @@ const renderwishlist = async (req, res) => {
             }
 
         }
+        let wishlist=[]
+        const isuser=await User.findOne({_id:user_id})
+        if(isuser.wishlist[0]){
         const user = await User.findOne({ _id: user_id }).populate('wishlist.product')
         console.log(user);
-        const wishlist = user.wishlist.filter((element, i) => {
+         wishlist = user.wishlist.filter((element, i) => {
             return element
         });
-
+        console.log(12);
         if (wishlist[0]) {
             res.render('wishlist', { x: req.session.user_id, wishlist })
-        } else {
-            res.send('dmckdecrjrdnfcrjdnfj')
         }
-
+    } else {
+        console.log(wishlist);
+        res.render('wishlist',{x:user_id,wishlist})
+    }
     } catch (err) {
         console.log(err);
     }
@@ -42,6 +47,7 @@ const renderwishlist = async (req, res) => {
 /////////////////WISH LIST DELETE/////////
 const deleteWishlist = async (req, res) => {
     try {
+        console.log(123);
         const id = req.query.id
         const user_id = req.session.user_id
         console.log(req.query);
@@ -52,7 +58,9 @@ const deleteWishlist = async (req, res) => {
         console.log(err);
     }
 }
+
 module.exports = {
     renderwishlist,
-    deleteWishlist
+    deleteWishlist,
+
 }
