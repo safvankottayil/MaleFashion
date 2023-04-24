@@ -57,9 +57,9 @@ user_router.get('/wishlistdelete',userAuth.isLogin,wishlistcontroller.deleteWish
 user_router.post('/addreview',userAuth.isLogin,reviewController.productReview)
 user_router.get('/reviewlike',userAuth.isLogin,reviewController.reviewlike)
 user_router.get('/reviewdislike',userAuth.isLogin,reviewController.reviewdislike)
-// user_router.get('*',(req,res)=>{
-//     res.render('404')
-// })
+user_router.get('*',(req,res)=>{
+    res.render('404')
+})
 
 
 
