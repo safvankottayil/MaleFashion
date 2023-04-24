@@ -91,19 +91,19 @@
                                                     <ul>
                                                         <li>
                                                             <input onclick="price(1)" id="ONE" value="0,999" type="checkbox">
-                                                            <label for="">$0.00 - 999</label>
+                                                            <label for="">₹0.00 - 999</label>
                                                         </li>
                                                         <li>
                                                             <input onclick="price(2)" id="TWO" value="1000,1999" type="checkbox">
-                                                            <label for="">$1000 - 1999</label>
+                                                            <label for="">₹1000 - 1999</label>
                                                         </li>
                                                         <li>
                                                             <input onclick="price(3)" id="THREE" value="2000,4999" type="checkbox">
-                                                            <label for="">$2000 - 4999</label>
+                                                            <label for="">₹2000 - 4999</label>
                                                         </li>
                                                         <li>
                                                             <input onclick="price(4)" id="FORE"  value="5000" type="checkbox">
-                                                            <label for="">5000-ABOUVE</label>
+                                                            <label for="">₹5000-ABOUVE</label>
                                                         </li>
 
                                                     </ul>
@@ -229,8 +229,7 @@
                                                 <p class="">
                                                     <%=element.title%>
                                                 </p>
-                                                <a href="/add-cart?id=<%= element._id %>" class="add-cart">+ Add To
-                                                    Cart</a>
+                                               
                                                 <!-- <div  class="rating">
                                         <i class="fa fa-star-o">x</i>
                                         <i class="fa fa-star-o">x</i>
@@ -305,7 +304,6 @@
                                 <div class="product__item__text">
                                     <h6>${element.brand}</h6>
                                     <p class="">${element.title}</p>
-                                    <a href="/add-cart?id=${element._id}" class="add-cart">+ Add To Cart</a>
                                     <!-- <div  class="rating">
                                         <i class="fa fa-star-o">x</i>
                                         <i class="fa fa-star-o">x</i>
@@ -314,7 +312,6 @@
                                         <i class="fa fa-star-o">x</i>
                                     </div> -->
                                     <h5><span class="mx-2">₹${element.price - element.discount}</span><small class="mx-2 text-danger text-decoration-line-through">₹${element.price}</small><span class="text-success mx-2">${(Math.round((element.discount * 100) / element.price))}% off</span></h5>
-                                 
                                 </div>
                             </div>
                         </a>

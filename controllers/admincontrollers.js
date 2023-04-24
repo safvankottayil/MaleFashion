@@ -13,7 +13,7 @@ let totalrevenue
 const renderDashbord = async (req, res) => {
     try {
         const users=await User.find().count()
-        const user=await User.find()
+        const user=await User.find().limit(3)
         const products=await Product.find().count()
         const order=await Order.find()
         let profit=0
@@ -290,7 +290,7 @@ const RenderProductlist = async (req, res) => {
 const insertProduct = async (req, res) => {
     try {
         let image = []
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i <req.files.length; i++) {
             image[i] = req.files[i].filename
         }
         console.log(req.body);

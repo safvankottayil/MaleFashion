@@ -201,7 +201,7 @@ const oredercancel = async (req, res) => {
            console.log(quantitys)
            console.log(product.stock);
             await Product.updateOne({_id:productId[i]},{$set:{stock:quantitys[i]+product.stock}})
-            if(req.query.orderview=='return'){
+            if(element.payment_type!='COD'){
                 const user=await User.findOne({_id:req.session.user_id})
                 if(user.wallet){
                     const x=   await User.updateOne({_id:req.session.user_id},{$set:{wallet:user.wallet+(element.totalprice-element.totaldiscount)}})

@@ -273,7 +273,7 @@
             <% if(x){ %>
             <div class="row d-flex justify-content-center">
                 <div style="background-color: #f0eeee;" class="col-12 col-md-10 ">
-                    <% if(!ThisuserReview){ %>
+                    <% if(!ThisuserReview&&!OrderData){ %>
                     <div id="review" class="m-2 px-3 pt-3  bg-white shadow">
                         <% for(let i=0;i<5;i++){ %>
                         <span id="<%=i%>star" onclick="starClick('<%=i%>')" class="fa fa-star"></span>

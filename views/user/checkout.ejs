@@ -32,9 +32,19 @@
            
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
-                        <a href="/user-address?checkout=true"><p class="btn btn-primary text-uppercase " >select address</p></a>
-                        <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-                        here</a> to enter your code</h6>
+                      <div style="position: relative;">
+                        <p class="btn btn-primary text-uppercase selectaddress " >select address</p>
+                        <div style="display:none;"  class="bg-light p-2 showaddress">
+                          <% for(let i=0 ;i<user.address.length;i++){%>
+                          
+                          <div class="bg-white shadow h-100 ps-2 d-flex align-items-center ">
+                            <input onclick="addresss('<%=i%>')" class="me-2" type="radio">
+                        <span><p class="p-0 m-0"> <b><%=user.address[i].name%> </b><%=user.address[i].address%> </p>
+                            <p class="p-0 m-0"><%=user.address[i].mobile1 %>,<%=user.address[i].mobile2  %></p></span>
+                          </div>
+                    <%    }; %>
+                        </div>
+                      </div>
                         <h6 class="checkout__title">Billing Details</h6>
                         <div class="row">
                             <div class="col-lg-6">
@@ -238,6 +248,17 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+ 
+
+
+  $(document).ready(()=>{
+ $('.selectaddress').click(()=>{
+  $('.showaddress').toggle()
+ })
+})
+  function addresss(index){
+location.href='/checkout?index='+index
+  }
     
     const form1 = document.getElementById('form1')
     const name = document.getElementById('name')
@@ -250,7 +271,6 @@
     const landmark = document.getElementById('landmark')
     const mobile2= document.getElementById('mobile2')
     const cashondelivery= document.getElementById('wallet')
-    console.log(cashondelivery);
 
 
 
@@ -274,10 +294,8 @@
       inputControll.classList.add('error')
     }
     form1.addEventListener('submit', e => {
-      console.log('hallo');
+      
 
-    //   console.log();
-    console.log(cashondelivery);
 
       const Add_name = name.value.trim()
       const Add_mobile1= mobile1.value.trim()
@@ -366,10 +384,9 @@
 
 let order='<%=JSON.stringify(order)%>'
 const index='<%=index%>'
-console.log(index);
-console.log(order);
+
 order=JSON.parse(order.replace(/&#34;/g,'"'))
-console.log(order);
+
 
 
 if(order){

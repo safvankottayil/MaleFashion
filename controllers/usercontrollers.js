@@ -14,6 +14,8 @@ const { ObjectId } = mongoose.Types
 accountsid = process.env.ACCOUNT_SID
 authtoken = process.env.AUTH_TOKEN
 servies_id = process.env.VERIFY_SID
+console.log(process.env.RAZERPAY_KEY);
+let c=1
 const Razorpay=require('razorpay')
 const  instance = new Razorpay({
     key_id: process.env.RAZERPAY_KEY,
@@ -261,17 +263,29 @@ const renderProductDeatil = async (req, res) => {
         let ThisuserReview
         let liked=[]
         const user_id=req.session.user_id
-        console.log(req.query);
         const productData = await Product.findOne({ _id: req.query.id, status: true }).populate('category')
+        if(productData){
+            let OrderData=false
         const price = productData.price
         const discount = productData.discount
         const discountPrice = price - discount
         const persentage = Math.round((100 * discount) / price)
         let ThisproductUsedcart=false
         if(user_id){
+            const order=await Order.findOne({user:user_id,'order.product_id':req.query.id})
+            if(order){
+             Data=order.order.filter((value)=>{
+                return value.status=='delivered'
+            })
+            if(Data[0]){
+                OrderData=true
+            }
+
+        }
+            console.log(1234);
+            console.log(OrderData);
         const CartData=await Cart.findOne({user:user_id,'products.product':req.query.id})
         console.log(CartData);
-      
         if(CartData){
              ThisproductUsedcart=true
         }else{
@@ -323,9 +337,13 @@ if(review){
                   ThisproductUsedcart,
                   ThisuserReview,
                   review,
-                liked
+                liked,
+                OrderData
                  })
         productDetialError = null
+                }else{
+                    res.redirect('/shopping')
+                }
     } catch (err) {
         console.log(err);
     }
@@ -401,8 +419,20 @@ const addAddress = async (req, res) => {
                 res.redirect('/orderinsert?index='+index+'&type=wallet')
             }
             else if(req.body.payment=='paypal'){
+                const cartData=await Cart.findOne({user:user_id})
+                let total
+                if(cartData.couponDiscount){
+                    console.log(cartData);
+                    console.log(1);
+                    total=cartData.grandtotal-cartData.grandDiscount-cartData.couponDiscount
+                }else{
+                    console.log(cartData);
+                    console.log(2);
+                    total=cartData.grandtotal-cartData.grandDiscount
+                }
+                
                 const options = {
-                    amount: 50000,  // amount in the smallest currency unit
+                    amount: total*100,  // amount in the smallest currency unit
                     currency: "INR",
                     receipt: "order_rcptid_11"
                   };
@@ -462,12 +492,28 @@ const editaddress = async (req, res) => {
            if(payment=='cash'){
            res.redirect('/orderinsert?index='+index)
            }else if(payment=='paypal'){
+            const cartData=await Cart.findOne({user:user_id})
+            let total
+            if(cartData.couponDiscount){
+                console.log(cartData);
+                console.log(1);
+                total=cartData.grandtotal-cartData.grandDiscount-cartData.couponDiscount
+            }else{
+                console.log(cartData);
+                console.log(2);
+                total=cartData.grandtotal-cartData.grandDiscount
+            }
+            console.log(typeof(total));
+            
+c++
             const options = {
-                amount: 50000,  // amount in the smallest currency unit
+                amount: total*100,  // amount in the smallest currency unit
                 currency: "INR",
-                receipt: "order_rcptid_11"
+                receipt: "order_rcptid_11"+c
               };
              const order=await instance.orders.create(options)
+             console.log(order);
+             console.log(1);
              req.session.order=order
              res.redirect('/checkout?index='+index)
            }else if(payment=='wallet'){
