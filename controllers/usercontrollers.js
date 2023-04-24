@@ -36,7 +36,6 @@ const encriptPassword = (password) => {
 }
 const sendEmailverify = (email, name, user_id) => {
     try {
-        console.log('dfvdsghhcdscdbcdskchvjbdsjc');
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -47,10 +46,10 @@ const sendEmailverify = (email, name, user_id) => {
             }
         });
         const mailOption = {
-            from: 'p7693088@gmail.com',
+            from: 'malefashionfation@gmail.com',
             to: email,
             subject: 'Email verifycation',
-            html: `<p>Hai${name}please click <a href="http://localhost:2000/verify?id=${user_id}></a></p>"`
+            html:`<p>Hai${name}please click <a href="https://malefashions.online/verify?id=${user_id}></a></p>"`
         }
         transporter.sendMail(mailOption, (err, info) => {
             if (err) {
