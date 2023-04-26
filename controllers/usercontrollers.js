@@ -241,14 +241,16 @@ const otpverify = async (req, res) => {
 const renderShop = async (req, res) => {
     try {
         const categoryData = await Category.find()
-        const ProductData = await Product.find({ status: true })
-        // const productData=await Product.findOne({_id:req.query.id}).populate('ca
+        let length=await Product.find({status:true}).count()
+        const ProductData = await Product.find({ status: true }).limit(8)
+         length =Math.ceil(length/8)
         const barnd = await Product.find().distinct('brand')
         console.log(barnd);
         res.render('product', {
             pro_Data: ProductData,
             cate_Data: categoryData,
             barnd,
+            length,
             x: req.session.user_id
         })
     } catch (err) {
@@ -863,6 +865,7 @@ const productfilter=async(req,res)=>{
                 if(filterprice.length==2){
                 product=await Product.find({
                     $and:[
+                        {status:true},
                     {price:{$lte:Number(filterprice[1])}},
                     {price:{$gte:Number(filterprice[0])}}
                 ]
@@ -871,18 +874,20 @@ const productfilter=async(req,res)=>{
             }else{
                 product=await Product.find({
                     $and:[
+                        {status:true},
                     {price:{$gte:Number(filterprice[0])}}
                 ]
                     
                 }).populate('category')
             }
             }else{
-                product=await Product.find({}).populate('category')
+                product=await Product.find({status:true}).populate('category')
             }
         
         }else{
             product=await Product.find({
                 $or:[
+                    {status:true},
                 {brand:{$regex:'.*'+search+'.*',$options:'i'}},
                { title:{$regex:'.*'+search+'.*',$options:'i'}}
                 ]
@@ -950,11 +955,43 @@ const productfilter=async(req,res)=>{
             Data[0]=product
         }
        
-        
+     
       }
-    
-    //////////
-      res.json({Data})
+      let Length=0
+      Data.forEach((value)=>{
+           value.forEach((element)=>{
+            Length++
+           })
+      })
+      console.log((Length)/6);
+      console.log(Length);
+      console.log(Math.ceil(Length/6));
+      Length=Math.ceil(Length/8)
+      let data=[]
+      console.log(req.query);
+      let page
+      if(req.query.page=='undefined'){
+           page=1
+      }else{
+           page =Number(req.query.page)
+      }
+      
+       console.log();
+       let skip=(page-1)*8
+       let k=0
+  let count=0
+  let count2=-1
+    Data.forEach((value,i)=>{
+       data[i]=value.filter((element,j)=>{
+        count2++
+          if(count2>=skip&&count<8){
+            console.log(1212);
+            count++
+            return element
+          }
+        })
+    })
+      res.json({data,Length})
       
     }catch(err){
         console.log(err);

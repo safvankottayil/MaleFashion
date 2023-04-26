@@ -364,7 +364,7 @@ const prodectEdit = async (req, res) => {
         const { title, brand, price, stock, discount, category, description, size, color } = req.body
         const Data = await Catgeory.find({ category: category })
         let image = []
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < req.files.length; i++) {
             image[i] = req.files[i].filename
         }
 
@@ -422,19 +422,77 @@ const renderOrderlist = async (req, res) => {
         order_hashID = [...new Set(order_hashID)]
         let groupOrders=[]
         order_hashID.forEach((element,i)=>{
-            groupOrders[i]= allorders.filter((value)=>{
+            allorders[i]= allorders.filter((value)=>{
                 return  value.order_hash==element
             })
         })
     
 
-        console.log(groupOrders);
-        groupOrders=groupOrders.reverse()
-        // let allorders
+        allorders=allorders.reverse()
+        console.log(req.query);
         if(req.query.type){
-            groupOrders
+            if(req.query.type=='all'){
+                groupOrders=allorders
+                
+            }else if(req.query.type=='pending'){
+                let i=0
+                allorders.forEach((element)=>{
+                groupOrders[i]=element.filter((value)=>{
+                     if(value.status=='pending'){
+                        i++
+                        return value.status=='pending'
+                        
+                     }
+                })
+            })
+            }else if(req.query.type=='ontheway'){
+                let i=0
+                allorders.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                   if(value.status=='on the way'){
+                    i++
+                    return value.status=='on the way'
+                   }
+                })
+            })
+            }else if(req.query.type=='delivered'){
+                let i=0
+                allorders.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='delivered'){
+                        i++
+                    return value.status=='delivered'
+                    }
+                })
+            })
+            }else if(req.query.type=='cancelled'){
+                let i=0
+                allorders.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='cancelled'){
+                        i++
+                    return value.status=='cancelled'
+                    
+                    }
+                })
+            })
+            }else if(req.query.type=='returned'){
+                let i=0
+                allorders.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='returned'){
+                        i++
+                    return value.status=='returned'
+                    }
+                })
+            })
+            }
+
+           res.render('order_list',{groupOrders})
         }else{
-            await  res.render('order_list',{groupOrders})
+            groupOrders=allorders
+            console.log(groupOrders);
+            res.render('order_list',{groupOrders})
         }
      
     } catch (err) {

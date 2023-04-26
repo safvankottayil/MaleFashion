@@ -1,4 +1,4 @@
-<<%- include('../layout/start') %>
+<%- include('../layout/start') %>
     <%- include('../layout/navbar',{x}) %>
         <style>
             li {
@@ -69,14 +69,14 @@
                                                     <div class="pro-qty-2 d-flex">
                                                         <button onclick="decrement('<%=element.product._id%>')"
                                                             style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;"
-                                                            class="de"><b>
+                                                            class="bg-white"><b>
                                                                 <</b></button>
                                                         <input class="input" type="text"
                                                             id="<%=element.product._id%>value"
                                                             value="<%=element.stock%>">
                                                         <button onclick="increment('<%=element.product._id%>')"
                                                             style="width: 15px; height: 15px; border: none; font-size: large; padding-bottom: 5px;"
-                                                            class=""><b>></b></button>
+                                                            class="bg-white"><b>></b></button>
 
                                                     </div>
                                                 </div>
@@ -128,9 +128,9 @@
                             </form>
                             <div id="coupon_area" class="bg-white p-2 shadow" style="width: 300px; position: absolute ; display: none;">
                                 <% if(cartData.couponID){ %>
-                                    <p class="text-danger">Coupon already used</p>
+                                    <p style="font-weight: 900;" class="text-center text-danger text-uppercase m-0 p-0"> coupons already used</p> 
                                     <% }else{ %>
-                    
+                                    <% if(coupon[0]){ %>
                                         <div>
                                 <% coupon.forEach(element => {%>
                                 
@@ -150,6 +150,9 @@
                                 
                                 <%}); %>
                             </div>
+                            <% }else{ %>
+                                <p style="font-weight: 900;" class="text-center text-danger text-uppercase m-0 p-0">no coupons</p>
+                                <% } %>
                                 <% } %>
                             </div>
                         </div>

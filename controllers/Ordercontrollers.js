@@ -240,9 +240,72 @@ const renderOrderlist = async (req, res) => {
                 return value.order_hash == element
             })
         })
-        if (Data) {
-            res.render('order_list', { x: req.session.user_id, Data })
+        let groupOrders=[]
+        if(req.query.type){
+            if(req.query.type=='all'){
+                groupOrders=Data
+                
+            }else if(req.query.type=='pending'){
+                let i=0
+                Data.forEach((element)=>{
+                groupOrders[i]=element.filter((value)=>{
+                     if(value.status=='pending'){
+                        i++
+                        return value.status=='pending'
+                        
+                     }
+                })
+            })
+            }else if(req.query.type=='ontheway'){
+                let i=0
+                Data.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                   if(value.status=='on the way'){
+                    i++
+                    return value.status=='on the way'
+                   }
+                })
+            })
+            }else if(req.query.type=='delivered'){
+                let i=0
+                Data.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='delivered'){
+                        i++
+                    return value.status=='delivered'
+                    }
+                })
+            })
+            }else if(req.query.type=='cancelled'){
+                let i=0
+                 Data.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='cancelled'){
+                        i++
+                    return value.status=='cancelled'
+                    
+                    }
+                })
+            })
+            }else if(req.query.type=='returned'){
+                let i=0
+                Data.forEach((element)=>{
+                    groupOrders[i]=element.filter((value)=>{
+                    if(value.status=='returned'){
+                        i++
+                    return value.status=='returned'
+                    }
+                })
+            })
+            }
+
+           res.render('order_list',{x:user_id,groupOrders})
+        }else{
+            if (Data) {
+                res.render('order_list', { x: req.session.user_id,groupOrders:Data })
+            }
         }
+        
     } catch (err) {
         console.log(err);
     }

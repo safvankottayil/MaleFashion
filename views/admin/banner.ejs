@@ -1,17 +1,24 @@
 <%- include('../layout/start') %>
-<section class="row w-100">
+<style>
+  .color{
+    color: aliceblue;
+  }
+</style>
+<section class="row w-100 m-0 " style="background-color: black;">
   <%- include('../layout/adminNavbar') %>
 
 
-<div class="col-12 vh-100 col-md-10 scroll">
-    <div class="d-flex justify-content-center w-100">
-        <a href="/admin/add-banner"><button class="btn btn bg-success m-3">ADD BANNER</button></a>
-        <a href="/admin/add-Semibanner"><button class="btn btn bg-success m-3">ADD SEMIBANNER</button></a>
+<div class="col-12 vh-100 pt-3 col-md-10 scroll">
+    <div class="d-flex bg-dark radius justify-content-center w-100 ">
+        <a href="/admin/add-banner"><button class="btn btn bg-success color m-3">ADD BANNER</button></a>
+        <% if(!banner[0].semibanner[0]){ %>
+        <a href="/admin/add-Semibanner"><button class="btn btn bg-success color m-3">ADD SEMIBANNER</button></a>
+        <% } %>
     </div>
-    <section>
+    <section class=" bg-dark p-2 radius my-2">
         <% if(banner[0]){ %>
         <% if(banner[0].semibanner[0]){ %>
-        <table class="table">
+        <table class="table color table-striped table-dark">
             <thead>
               <tr>
                 <th scope="col">NO</th>
@@ -24,14 +31,14 @@
               <tr>
                 <th scope="row">1</th>
                 <td>
-                    <img style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[0] %>" alt="">
-                    <img style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[1] %>" alt="">
-                    <img style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[2]%>" alt="">
+                    <img class="radius" style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[0] %>" alt="">
+                    <img class="radius" style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[1] %>" alt="">
+                    <img class="radius" style="height: 200px;" src="product/<%= banner[0].semibanner[0].image[2]%>" alt="">
                 </td>
             
                 <td style="height:220px;" class="d-flex justify-content-center align-items-center">
                     <!-- <div class="h-100"> -->
-                   <a href="/admin/delete-semibanner?id=<%= banner[0].semibanner[0]._id%>"><button class="m-3 btn btn-danger">DELETE</button></a>
+                   <!-- <a href="/admin/delete-semibanner?id=<%= banner[0].semibanner[0]._id%>"><button class="m-3 btn btn-danger">DELETE</button></a> -->
                    <a href="/admin/edit-semibanner?id=<%= banner[0]._id%>"><button class="m-3 btn btn-success">EDIT</button></a>
                 <!-- </div> -->
                 </td>
@@ -42,9 +49,9 @@
           <% } %>
           <% } %>
     </section>
-    <section>
+    <section class="bg-dark p-2 radius">
         <% if(banner[0]){ %>
-        <table class="table">
+        <table class="table color table-striped table-dark">
             <thead>
               <tr>
                 <th scope="col">NO</th>
@@ -60,11 +67,13 @@
             
               <tr>
                 <th scope="row"><%=i+1 %></th>
-                <td><img style="height: 150px;" src="product/<%=element.image%>" alt=""></td>
+                <td><img class="radius" style="height: 150px;" src="product/<%=element.image%>" alt=""></td>
                 <td><%= element.title1 %></td>
                 <td><%= element.description %></td>
                 <td>
+                  <% if(i!==0){ %>
                     <a href="/admin/delete-banner?id=<%=element._id %>"><button class=" m-3 btn btn-danger">DELETE</button></a>
+                    <% } %>
                     <a href="/admin/edit-banner?id=<%=element._id %>"><button class=" m-3 btn btn-success">EDIT</button></a>
                 </td>
               </tr>

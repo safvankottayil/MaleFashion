@@ -16,37 +16,37 @@
                     <li class="pt-3"><h5><b>FILTER</b></h5></li>
                     <li class="py-2"><h6><b>ORDER STATUS</b></h6></li>
                     <div class="slidenav">
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">ALL</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">PENDING</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">ON THE WAY</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">DELIVERED</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">CANCELLED</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="">
-                        <label for="">RETURNED</label>
-                    </li>
+                        <li>
+                            <input onclick="status('all')" type="radio" name="" id="">
+                            <label  for="">ALL</label>
+                        </li>
+                        <li>
+                            <input  onclick="status('pending')"  type="radio" name="" id="">
+                            <label for="">PENDING</label>
+                        </li>
+                        <li>
+                            <input  onclick="status('ontheway')"  type="radio" name="" id="">
+                            <label for="">ON THE WAY</label>
+                        </li>
+                        <li>
+                            <input  onclick="status('delivered')"  type="radio" name="" id="">
+                            <label for="">DELIVERED</label>
+                        </li>
+                        <li>
+                            <input  onclick="status('cancelled')"  type="radio" name="" id="">
+                            <label for="">CANCELLED</label>
+                        </li>
+                        <li>
+                            <input  onclick="status('returned')"  type="radio" name="" id="">
+                            <label for="">RETURNED</label>
+                        </li>
                 
                 </ul>
             </div>
         </div>
        
         <div class="col-12 col-md-10">
-            <% Data.forEach(element => {%>
+            <% groupOrders.forEach(element => {%>
                 
             <section class=" my-2 shadow bg-white" style=" border-radius: 5px; border: 1px solid black;">
                
@@ -114,6 +114,11 @@
       
     </div>
         </div>
+        <script>
+              function status(type){
+            location.href='/orderlist?type='+type
+        }
+        </script>
 
 <%- include('../layout/footer') %>
 <%-include('../layout/end')%>

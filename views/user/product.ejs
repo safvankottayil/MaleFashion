@@ -18,7 +18,7 @@
         </section>
         <!-- Shop Section Begin -->
         <section class="shop spad pt-3">
-            <div class="container-fuild m-5">
+            <div class="container-fuild mx-4">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="shop__sidebar">
@@ -111,134 +111,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFour">Size</a>
-                                    </div>
-                                    <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__size">
-                                                <label for="xs">xs
-                                                    <input type="radio" id="xs">
-                                                </label>
-                                                <label for="sm">s
-                                                    <input type="radio" id="sm">
-                                                </label>
-                                                <label for="md">m
-                                                    <input type="radio" id="md">
-                                                </label>
-                                                <label for="xl">xl
-                                                    <input type="radio" id="xl">
-                                                </label>
-                                                
-                                                <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
-                                                </label>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                    <!-- <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
-                                    </div>
-                                    <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__color">
-                                                <label class="bg-success" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                                <label class="bg-danger" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                                <label class="bg-warning" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                                <label class="bg-dark" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                                <label class="bg-primary" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                    <!-- <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
-                                    </div>
-                                    <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__tags">
-                                                <a href="#">Product</a>
-                                                <a href="#">Bags</a>
-                                                <a href="#">Shoes</a>
-                                                <a href="#">Fashio</a>
-                                                <a href="#">Clothing</a>
-                                                <a href="#">Hats</a>
-                                                <a href="#">Accessories</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                 
+                                        
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- //////////////////////////////////// -->
-                    <div class="col-lg-9">
-                        <!-- <div class="shop__product__option">
-                            <div class="row">
-
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__left">
-                                        <p>Showing 1–12 of 126 results</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__right">
-                                        <p>Sort by Price:</p>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">$0 - $55</option>
-                                            <option value="">$55 - $100</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div id="Filter" class="row">
+                    <div class="col-lg-9 m-0 p-0 px-1">
+                      
+                        <div id="Filter" class="row d-flex justify-content-center">
                             <%pro_Data.forEach((element,i)=> { %>
 
-                                <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                                <div  class="col-6  col-lg-4 col-md-4 col-sm-6 col-xl-3 ">
                                     <a href="/product-deatil?id=<%=element._id %>">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg">
-                                                <img class="h-100 w-100" src="product/<%= element.image[0] %>" alt="">
+                                                <img style="border: solid 1px black;" class=" radius h-100 w-100" src="product/<%= element.image[0] %>" alt="">
                                                 <ul class="product__hover">
                                                     <li><a href="/wishlist?id=<%=element._id %>"><img src="img/icon/heart.png" alt=""></a></li>
                                                 </ul>
                                             </div>
-                                            <div class="product__item__text">
-                                                <h6>
+                                            <div class="product__item__text m-0 p-0 ">
+                                                <h6 class="mt-2">
                                                     <%=element.brand%>
                                                 </h6>
-                                                <p class="">
+                                                <p class="mb-1">
                                                     <%=element.title%>
                                                 </p>
-                                               
-                                                <!-- <div  class="rating">
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                    </div> -->
-                                                <h5><span class="mx-2">₹<%=element.price%></span><small
-                                                        class="mx-2 text-danger text-decoration-line-through"></small><span class="text-success mx-2">
+                                              
+                                                <h5><span class="">₹<%=element.price%><span class="text-success mx-2">
                                                         <%=(Math.round((element.discount*100) /element.price))%>% off
                                                     </span></h5>
 
@@ -250,6 +153,32 @@
                                 <% }) %>
                         </div>
 
+                       </div>
+                       <div class="col-lg-3"></div>
+                       <div class="col-lg-9 m-0 p-0">
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item">
+                                    <p class="page-link" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                    </p>
+                                  </li>
+                                  <i class="d-flex m-0 p-0" id="pagination">
+                                  <% for(let i=0;i<length;i++) {%>
+                                  <li class="page-item"><p class="page-link" onclick="page('<%=i+1%>')"><%= i+1 %></p></li>
+                                  <% } %>
+                                  </i>
+                                  <li class="page-item">
+                                    <p class="page-link" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                    </p>
+                                  </li>
+                                </ul>
+                              </nav>
+                        </div>
+                        </div>
+
                         <!-- Shop Section End -->
                         <%- include('../layout/end') %>
                             <script>
@@ -258,8 +187,14 @@
                                 let categorys = []
                                 let brands = []
                                 let search
+                                let Page
                                 let prices=[]
                                 let filterprice=[]
+                                function page(p){
+                                
+                                 console.log(43);
+                                 submit(categorys,brands,search,filterprice,p)
+                                }
                                 function category(ID) {
 
                                     if ($(`#${ID}`).is(':checked') == true) {
@@ -275,47 +210,48 @@
                                         n--
                                         console.log(categorys);
                                     }
-                                    submit(categorys, brands, search,filterprice)
+                                    submit(categorys, brands, search,filterprice,Page)
 
                                 }
-                                function submit(categorys, brands) {
+                                function submit(categorys,brands,search,filterprice,P) {
                                     $.ajax({
-                                        url: '/product-filter',
+                                        url: '/product-filter?page='+P,
                                         type: 'post',
                                         dataType: 'json',
                                         contentType: 'application/json',
                                         data: JSON.stringify({ categorys, brands, search ,filterprice}),
                                         success: (res) => {
                                             let html = []
-                                            if (res.Data) {
-                                                console.log(res.Data);
+                                            if (res.data) {
+                                                console.log(res.data);
                                                 $('#Filter').html('')
-                                                res.Data.forEach(value => {
+                                                res.data.forEach(value => {
                                                     value.forEach((element, i) => {
-                                                        html += `<div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
-                            <a href="/product-deatil?id=${element._id}">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                    <img class="h-100 w-100" src="product/${element.image[0]}" alt="">
-                                    <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>${element.brand}</h6>
-                                    <p class="">${element.title}</p>
-                                    <!-- <div  class="rating">
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                        <i class="fa fa-star-o">x</i>
-                                    </div> -->
-                                    <h5><span class="mx-2">₹${element.price - element.discount}</span><small class="mx-2 text-danger text-decoration-line-through">₹${element.price}</small><span class="text-success mx-2">${(Math.round((element.discount * 100) / element.price))}% off</span></h5>
-                                </div>
-                            </div>
-                        </a>
-                        </div>`
+                                                        html += ` <div  class="col-6  col-lg-4 col-md-4 col-sm-6 col-xl-3 px-2">
+                                    <a href="/product-deatil?id=${element._id}">
+                                        <div class="product__item">
+                                            <div class="product__item__pic set-bg">
+                                                <img style="border: solid 1px black;" class=" radius h-100 w-100" src="product/${element.image[0]}" alt="">
+                                                <ul class="product__hover">
+                                                    <li><a href="/wishlist?id=${element._id}"><img src="img/icon/heart.png" alt=""></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text m-0 p-0 ">
+                                                <h6 class="mt-2">
+                                                    ${element.brand}
+                                                </h6>
+                                                <p class="mb-1">
+                                                    ${element.title}
+                                                </p>
+                                              
+                                                <h5><span class="">₹${element.price}<span class="text-success mx-2">
+                                                        ${(Math.round((element.discount*100) /element.price))}% off
+                                                    </span></h5>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>`
 
                                                     })
 
@@ -325,6 +261,16 @@
 
 
 
+
+                                            }
+                                             let pagination=[]
+                                            if(res.Length){
+                                                console.log(res.Length);
+                                                $('#pagination').html('')
+                                                for(let j=0;j<res.Length;j++){
+                                                    pagination+=`<li class="page-item"><p class="page-link" onclick="page('${j+1}')">${j+1}</p></li>`
+                                                }
+                                                $('#pagination').html(pagination)
 
                                             }
                                         }
@@ -341,12 +287,12 @@
                                         brands.splice(index, 1)
                                         b--
                                     }
-                                    submit(categorys, brands, search,filterprice)
+                                    submit(categorys, brands, search,filterprice,Page)
                                 }
 
                                 function filtersearch() {
                                     search = $('#search').val()
-                                    submit(categorys, brands, search,filterprice)
+                                    submit(categorys, brands, search,filterprice,Page)
                                 }
                                 function price(check){
                                     filterprice=[]
@@ -422,7 +368,7 @@
                                         console.log(filterprice);
                                         console.log('dhcf');
                                     }
-                                    submit(categorys, brands, search,filterprice)
+                                    submit(categorys, brands, search,filterprice,Page)
                                     
                                 }
                             </script>

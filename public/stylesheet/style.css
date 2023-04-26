@@ -312,3 +312,39 @@ background-color:#19191a;
 .checked {
   color: orange;
 }
+.banner{
+  animation: bg 5s infinite alternate;
+}
+@keyframes bg{
+  0%{
+      background-color: #f7efef;
+  }
+  10%{
+    background-color: #e1dddd;
+  }
+  20%{
+    background-color: #fbf1f1;
+  }
+  30%{
+    background-color: #bdbbbb;
+  }
+  40%{
+    background-color: #e9e5e5;
+  }
+  50%{
+    background-color: #fef3f3;
+  }
+  60%{
+    background-color: #e4efe5;
+  }
+  70%{
+    background-color: hsla(86, 100%, 99%, 0.948);
+  }
+  80%{
+    background-color: #efe8e9;
+  }
+  90%{
+    background-color: #f2f1f6;
+  }
+  
+}
